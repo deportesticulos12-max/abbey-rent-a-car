@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABBEY Rent a car | Alquiler de autos al mejor precio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="#" class="logo-group">
+                <img src="assets/logo.png" alt="ABBEY Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+
+            <!-- Hamburger button (solo móvil) -->
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menú" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile dropdown menu -->
+        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+            <ul>
+                <li><a href="#inicio" class="mobile-menu-link"><i class="ph ph-house"></i> Inicio</a></li>
+                <li><a href="#servicios" class="mobile-menu-link"><i class="ph ph-star"></i> Servicios</a></li>
+                <li><a href="contacto.html" class="mobile-menu-link"><i class="ph ph-envelope"></i> Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-slides">
+            <div class="hero-slide active" style="background-image: url('assets/hero-1.png');"></div>
+            <div class="hero-slide" style="background-image: url('assets/hero-2.png');"></div>
+            <div class="hero-slide" style="background-image: url('assets/hero-3.png');"></div>
+        </div>
+        <div class="container hero-content animate">
+            <span class="section-tag">Alquiler Accesible con la Mejor Atención</span>
+            <h1>Tu viaje, <span>tu estilo</span>, tu libertad.</h1>
+            <p>Los mejores precios con la mejor atención. Sin sorpresas, sin demoras. En ABBEY cuidamos tu bolsillo y tu experiencia.</p>
+        </div>
+
+        <!-- Booking Widget (dentro del hero) -->
+        <div class="hero-booking-wrapper container">
+            <div class="booking-card glass animate">
+                <form class="booking-form" id="bookingForm">
+                    <div class="form-group">
+                        <label><i class="ph ph-map-pin"></i> Lugar de Retiro</label>
+                        <select required>
+                            <option value="">Selecciona ubicación</option>
+                            <option value="caballito">Oficina Caballito</option>
+                            <option value="eze">Aeropuerto Ezeiza (EZE)</option>
+                            <option value="aep">Aeroparque (AEP)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ph ph-calendar"></i> Fecha de Retiro</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ph ph-calendar"></i> Fecha de Devolución</label>
+                        <input type="date" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        Buscar Auto
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Promotions Section -->
+    <section class="promo-section animate">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-tag">Especiales ABBEY</span>
+                <h2 class="section-title">Aprovechá nuestras promociones</h2>
+            </div>
+            
+            <div class="promos-grid">
+                <!-- Promo 1: Costa -->
+                <div class="promo-card glass">
+                    <div class="promo-badge">1400km Libres</div>
+                    <div class="promo-icon"><i class="ph ph-sun"></i></div>
+                    <h3>Escapada a la Costa</h3>
+                    <p>Disfrutá de un pack especial de Viernes a Lunes diseñado para tu viaje de descanso. Todo incluido para que solo te preocupes por el paisaje.</p>
+                    <a href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20la%20promoci%C3%B3n%20Escapada%20a%20la%20Costa%20de%20fin%20de%20semana." class="btn-primary promo-btn" target="_blank">Consultar Promo <i class="ph ph-whatsapp-logo"></i></a>
+                </div>
+
+                <!-- Promo 2: 6+1 -->
+                <div class="promo-card glass">
+                    <div class="promo-badge">7mo día Gratis</div>
+                    <div class="promo-icon"><i class="ph ph-calendar-star"></i></div>
+                    <h3>Promoción 6 + 1</h3>
+                    <p>Alquilando 6 días, el séptimo te lo regalamos nosotros. La mejor opción de ahorro para tus vacaciones largas o viajes de trabajo extendidos.</p>
+                    <a href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20la%20promoci%C3%B3n%206%2B1%20semanal." class="btn-primary promo-btn" target="_blank">Consultar Promo <i class="ph ph-whatsapp-logo"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section class="section-padding" id="flota">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-tag">Nuestra Flota</span>
+                <h2 class="section-title">Encontrá el auto ideal para vos</h2>
+            </div>
+            
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <!-- Set 1 -->
+                    <!-- Onix -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-onix.png" alt="Chevrolet Onix">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Chevrolet Onix</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 2 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- VW Gol Trend -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-gol.png" alt="VW Gol Trend 2017">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>VW Gol Trend</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 2 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Ford Ka -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-ka.png" alt="Ford Ka 2019">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Ford Ka</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 1 valija</span></div>
+                        </div>
+                    </div>
+                    <!-- Prisma -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-prisma.png" alt="Chevrolet Prisma">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Chevrolet Prisma</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 2 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Suran -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge suv">Familiar</span>
+                            <img src="assets/car-suran.png" alt="Volkswagen Suran">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Volkswagen Suran</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 3 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Spin -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge suv">Familiar</span>
+                            <img src="assets/car-spin.png" alt="Chevrolet Spin">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Chevrolet Spin</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 3 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Corolla -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge premium">Confort</span>
+                            <img src="assets/car-corolla.png" alt="Toyota Corolla">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Toyota Corolla</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 3 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Golf TSI -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge premium">Confort</span>
+                            <img src="assets/car-golf.png" alt="VW Golf TSI">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>VW Golf TSI</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 2 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Fiat Fiorino -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge utility" style="background: #0369a1; color: white;">Utilitario</span>
+                            <img src="assets/car-fiorino.png" alt="Fiat Fiorino">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Fiat Fiorino</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 2 pax</span><span><i class="ph ph-package"></i> Furgón</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Set 2 (Duplicate for infinite loop) -->
+                    <!-- Onix -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-onix.png" alt="Chevrolet Onix">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Chevrolet Onix</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 2 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- VW Gol Trend -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-gol.png" alt="VW Gol Trend 2017">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>VW Gol Trend</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 2 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Ford Ka -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-ka.png" alt="Ford Ka 2019">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Ford Ka</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 1 valija</span></div>
+                        </div>
+                    </div>
+                    <!-- Prisma -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-prisma.png" alt="Chevrolet Prisma">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Chevrolet Prisma</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 2 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Suran -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge suv" style="background: #166534;">Familiar</span>
+                            <img src="assets/car-suran.png" alt="Volkswagen Suran">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Volkswagen Suran</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 3 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Spin -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge suv" style="background: #166534;">Familiar</span>
+                            <img src="assets/car-spin.png" alt="Chevrolet Spin">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Chevrolet Spin</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 3 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Corolla -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge premium" style="background: linear-gradient(135deg, #92400e, #d97706);">Confort</span>
+                            <img src="assets/car-corolla.png" alt="Toyota Corolla">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Toyota Corolla</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 3 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Golf TSI -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge premium" style="background: linear-gradient(135deg, #92400e, #d97706);">Confort</span>
+                            <img src="assets/car-golf.png" alt="VW Golf TSI">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>VW Golf TSI</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 5 pax</span><span><i class="ph ph-briefcase"></i> 2 valijas</span></div>
+                        </div>
+                    </div>
+                    <!-- Fiat Fiorino -->
+                    <div class="marquee-card">
+                        <div class="marquee-card-image">
+                            <span class="category-badge utility" style="background: #0369a1; color: white;">Utilitario</span>
+                            <img src="assets/car-fiorino.png" alt="Fiat Fiorino">
+                        </div>
+                        <div class="marquee-card-details">
+                            <h3>Fiat Fiorino</h3>
+                            <div class="marquee-card-specs"><span><i class="ph ph-users"></i> 2 pax</span><span><i class="ph ph-package"></i> Furgón</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fleet-action">
+                <button class="btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem;" onclick="window.location.href='our-fleet.html'">Ver flota completa <i class="ph ph-arrow-right"></i></button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="section-padding" id="servicios" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-tag">Beneficios ABBEY</span>
+                <h2 class="section-title">¿Por qué alquilar con nosotros?</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-item glass">
+                    <div class="feature-icon"><i class="ph ph-shield-check"></i></div>
+                    <h3>Seguro Total</h3>
+                    <p>Contamos con coberturas amplias para que viajes con total tranquilidad por todo el país.</p>
+                </div>
+                <div class="feature-item glass">
+                    <div class="feature-icon"><i class="ph ph-clock"></i></div>
+                    <h3>Soporte 24/7</h3>
+                    <p>Nuestro equipo está disponible las 24 horas para asistirte en cualquier momento del viaje.</p>
+                </div>
+                <div class="feature-item glass">
+                    <div class="feature-icon"><i class="ph ph-currency-dollar"></i></div>
+                    <h3>Precios Claros</h3>
+                    <p>Sin costos ocultos ni tasas sorpresa al momento de retirar el vehículo. Lo que ves es lo que pagas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo-group">
+                    <img src="assets/logo.png" alt="ABBEY Logo">
+                </div>
+                <p>ABBEY Rent a car: Más de 30 años brindando los mejores precios y una atención que nos diferencia.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/abbeyrentacar/" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="https://www.facebook.com/www.abbeyrentacar.com.ar/?locale=es_LA" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+                    <a href="https://wa.me/5491163842564" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="about.html">Sobre Nosotros</a></li>
+                    <li><a href="our-fleet.html">Flota</a></li>
+                    <li><a href="empresas.html">Convenio Empresas</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Términos y Condiciones</a></li>
+                    <li><a href="privacidad.html">Políticas de Privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="tel:+5491163842564"><i class="ph ph-phone"></i> +54 11 6384 2564</a></li>
+                    <li><a href="https://mail.google.com/mail/?view=cm&to=abbeyrentacar@gmail.com" target="_blank"><i class="ph ph-envelope"></i> abbeyrentacar@gmail.com</a></li>
+                    <li><a href="https://www.google.com/maps/place/Abbey+Rent+A+Car/@-34.6270509,-58.4367758,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcca4eae7a6c6b:0x31104204da43200e!8m2!3d-34.6270553!4d-58.4342009!16s%2Fg%2F1v2kym22" target="_blank"><i class="ph ph-map-pin"></i> Buenos Aires, Argentina</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 ABBEY Rent a car. Todos los derechos reservados.</p>
+            <p>Diseñado con <i class="ph ph-heart" style="color: #ef4444;"></i> para ABBEY.</p>
+        </div>
+    </footer>
+
+    <!-- Slideshow Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+
+            // Cambiar imagen cada 5 segundos
+            setInterval(nextSlide, 5000);
+        });
+    </script>
+
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      id="whatsapp-float-btn"
+      class="whatsapp-float"
+      href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20alquilar%20un%20auto%20con%20ABBEY%20Rent%20a%20Car."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <span class="whatsapp-float__label">Reservas / Consultas</span>
+      <div class="whatsapp-float__bubble">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+      </div>
+    </a>
+
+    <!-- Hamburger Menu Script -->
+    <script>
+        (function() {
+            const btn  = document.getElementById('hamburgerBtn');
+            const menu = document.getElementById('mobileMenu');
+            if (!btn || !menu) return;
+
+            function openMenu() {
+                btn.classList.add('open');
+                menu.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+                menu.setAttribute('aria-hidden', 'false');
+            }
+            function closeMenu() {
+                btn.classList.remove('open');
+                menu.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                menu.setAttribute('aria-hidden', 'true');
+            }
+
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                btn.classList.contains('open') ? closeMenu() : openMenu();
+            });
+
+            // Cierra al tocar un link
+            menu.querySelectorAll('.mobile-menu-link').forEach(function(link) {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // Cierra al tocar fuera del menú
+            document.addEventListener('click', function(e) {
+                if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+
+            // Cierra si se pasa a desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) closeMenu();
+            });
+        })();
+    </script>
+
+</body>
+</html>
+
+

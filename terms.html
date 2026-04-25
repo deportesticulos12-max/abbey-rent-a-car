@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones | Abbey Rent a Car</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="about.css">
+    <link rel="icon" type="image/png" href="assets/logo-minimalista-fondo.png">
+    <script src="db.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-group">
+                <img src="assets/logo.png" alt="ABBEY Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn-primary" onclick="window.location.href='our-fleet.html'">Alquilar Ahora</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url('assets/hero-bg.jpg') center/cover; padding: 10rem 0 4rem; text-align: center;">
+        <div class="container animate">
+            <span class="section-tag">Transparencia</span>
+            <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Términos y Condiciones</h1>
+            <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 600px; margin: 0 auto;">Reglas Claras Conservan la Amistad</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="terms-grid">
+                
+                <!-- Card 1 -->
+                <div class="terms-card glass">
+                    <div class="terms-icon"><i class="ph ph-identification-card"></i></div>
+                    <div class="terms-content-area">
+                        <h3>1. Requisitos para Alquilar</h3>
+                        <p>Para alquilar un vehículo en ABBEY Rent a car, el conductor principal debe cumplir con los siguientes requisitos al momento de firmar el contrato:</p>
+                        <ul>
+                            <li>Ser mayor de 21 años.</li>
+                            <li>Presentar Licencia de Conducir nacional o internacional vigente con más de 2 años de antigüedad.</li>
+                            <li>Presentar DNI o Pasaporte vigente.</li>
+                            <li>Presentar una Tarjeta de Crédito física a nombre del titular para realizar la pre-autorización en concepto de garantía. No se aceptan tarjetas prepagas ni virtuales.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="terms-card glass">
+                    <div class="terms-icon"><i class="ph ph-map-trifold"></i></div>
+                    <div class="terms-content-area">
+                        <h3>2. Uso y Límite Territorial</h3>
+                        <p>Nuestros vehículos están destinados a brindar soluciones de movilidad confiables dentro del entorno urbano y regional. Queda estrictamente prohibido y sin cobertura el uso de nuestros vehículos en caminos de ripio pesado, médanos, competencias deportivas, o para remolcar otros vehículos.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="terms-card glass">
+                    <div class="terms-icon"><i class="ph ph-steering-wheel"></i></div>
+                    <div class="terms-content-area">
+                        <h3>3. Nuestra Flota</h3>
+                        <p>Nos enorgullece ofrecer tarifas altamente competitivas manteniendo siempre una excelente y cercana atención humana. Toda nuestra flota es sometida a rigurosos y constantes controles mecánicos preventivos, garantizándote siempre una experiencia de viaje completamente segura, limpia y confiable al mejor precio del mercado.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="terms-card glass">
+                    <div class="terms-icon"><i class="ph ph-clock"></i></div>
+                    <div class="terms-content-area">
+                        <h3>4. Entregas, Devoluciones y Demoras</h3>
+                        <p>Ofrecemos una tolerancia de cortesía de hasta 45 minutos después del horario pactado de retiro o devolución. En caso de superar este límite sin previo aviso a nuestras oficinas, se podrá cobrar un cargo adicional equivalente a un día de alquiler, o bien, dar por cancelada la reserva sin reembolso en caso de retiros en aeropuerto.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="terms-card glass">
+                    <div class="terms-icon"><i class="ph ph-receipt"></i></div>
+                    <div class="terms-content-area">
+                        <h3>5. Peajes e Infracciones de Tránsito</h3>
+                        <p>Los vehículos se entregan sin dispositivo Telepase activo, salvo aclaración previa. El pago de todos los peajes e infracciones de tránsito generadas durante el período de alquiler es <strong>responsabilidad absoluta del cliente</strong>. En caso de recibir multas posteriores a la devolución del vehículo, ABBEY derivará la infracción al titular y aplicará un cargo administrativo.</p>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="terms-card glass">
+                    <div class="terms-icon"><i class="ph ph-gas-pump"></i></div>
+                    <div class="terms-content-area">
+                        <h3>6. Combustible</h3>
+                        <p>El vehículo se entrega con una cantidad determinada de combustible indicada en el contrato, y deberá ser devuelto <strong>con esa misma cantidad</strong> o superior. En caso de devolverse con faltante, se cobrará el valor del combustible actualizado al momento más un cargo por el servicio de reabastecimiento.</p>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="terms-card glass">
+                    <div class="terms-icon"><i class="ph ph-shield-warning"></i></div>
+                    <div class="terms-content-area">
+                        <h3>7. Canales Oficiales y Prevención de Fraudes</h3>
+                        <p>Para su seguridad, le informamos que <strong>los únicos canales de comunicación y medios de contacto oficiales de Abbey Rent a Car son única y exclusivamente los publicados en esta página web oficial</strong> (teléfonos fijos y correos electrónicos). Nuestra empresa jamás le solicitará transferencias bancarias preventivas ni datos de tarjeta de crédito a través de redes sociales, WhatsApp no verificado o perfiles no oficiales.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-group">
+                        <img src="assets/logo.png" alt="ABBEY Logo">
+                    </a>
+                    <p>ABBEY Rent a car: Más de 30 años brindando los mejores precios y una atención que nos diferencia.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/abbeyrentacar/" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="https://www.facebook.com/www.abbeyrentacar.com.ar/?locale=es_LA" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="https://wa.me/5491163842564" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="about.html">Sobre Nosotros</a></li>
+                        <li><a href="our-fleet.html">Flota</a></li>
+                        <li><a href="empresas.html">Convenio Empresas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="terms.html">Términos y Condiciones</a></li>
+                        <li><a href="privacidad.html">Políticas de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="tel:+5491163842564"><i class="ph ph-phone"></i> +54 11 6384 2564</a></li>
+                        <li><a href="https://mail.google.com/mail/?view=cm&to=abbeyrentacar@gmail.com" target="_blank"><i class="ph ph-envelope"></i> abbeyrentacar@gmail.com</a></li>
+                        <li><a href="https://www.google.com/maps/place/Abbey+Rent+A+Car/@-34.6270509,-58.4367758,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcca4eae7a6c6b:0x31104204da43200e!8m2!3d-34.6270553!4d-58.4342009!16s%2Fg%2F1v2kym22" target="_blank"><i class="ph ph-map-pin"></i> Buenos Aires, Argentina</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ABBEY Rent a car. Todos los derechos reservados.</p>
+                <p>Diseñado en Buenos Aires</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      id="whatsapp-float-btn"
+      class="whatsapp-float"
+      href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20alquilar%20un%20auto%20con%20ABBEY%20Rent%20a%20Car."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <span class="whatsapp-float__label">Reservas / Consultas</span>
+      <div class="whatsapp-float__bubble">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+      </div>
+    </a>
+
+</body>
+</html>
+
+
+
+
+
+
+

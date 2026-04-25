@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultá Disponibilidad | ABBEY Rent a car</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fleet.css">
+    <link rel="stylesheet" href="checkout.css">
+    <link rel="icon" type="image/png" href="assets/logo-minimalista-fondo.png">
+    <script src="db.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="scrolled">
+        <div class="container">
+            <a href="index.html" class="logo-group">
+                <img src="assets/logo.png" alt="ABBEY Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-primary" onclick="history.back()">
+                    <i class="ph ph-arrow-left"></i> Volver
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Stepper -->
+    <section class="stepper-section">
+        <div class="container">
+            <div class="stepper">
+                <div class="step completed">
+                    <div class="step-circle" onclick="window.location.href='index.html'" title="Volver a Fecha y Lugar"><i class="ph ph-check"></i></div>
+                    <span>Fecha y Lugar</span>
+                </div>
+                <div class="step-line completed-line"></div>
+                <div class="step completed">
+                    <div class="step-circle" onclick="goBackToFleet()" title="Volver a elegir auto"><i class="ph ph-check"></i></div>
+                    <span>Elegí tu auto</span>
+                </div>
+                <div class="step-line completed-line"></div>
+                <div class="step active">
+                    <div class="step-circle">3</div>
+                    <span>Extras y Datos</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <span>Consulta enviada</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="checkout-page">
+        <div class="container checkout-layout">
+
+             <!-- Extras / Coberturas (Independent section for flexible ordering) -->
+            <section class="extras-section glass checkout-section">
+                <h2><i class="ph ph-shield-plus"></i> Coberturas y Extras</h2>
+
+                <div class="extra-card">
+                    <div class="extra-info">
+                        <h4>Smart Cover</h4>
+                        <p>Cubre pinchaduras y roturas de vidrios y parabrisas (no incluye daño en las llantas).</p>
+                    </div>
+                    <div class="extra-action">
+                        <span class="extra-price" id="smartCoverPriceDisplay">+$8.500/día</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" name="smart_cover">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <div class="extra-info">
+                        <h4>Protección Plus</h4>
+                        <p>Reduce un 50% la franquicia a abonar en caso de choques (no incluye vuelcos).</p>
+                    </div>
+                    <div class="extra-action">
+                        <span class="extra-price" id="protectionPlusPriceDisplay">+$13.600/día</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" name="protection_plus">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <div class="extra-info">
+                        <h4>Conductor Adicional</h4>
+                        <p>Agregá un segundo conductor autorizado al alquiler.</p>
+                    </div>
+                    <div class="extra-action">
+                        <span class="extra-price">Gratis</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" name="extra_driver">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <div class="extra-info">
+                        <h4>Silla para Bebé</h4>
+                        <p>Silla de seguridad homologada para bebés de 0 a 4 años.</p>
+                    </div>
+                    <div class="extra-action">
+                        <span class="extra-price">+$4.000/día</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" name="baby_seat">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <div class="extra-card">
+                    <div class="extra-info">
+                        <h4>Booster para Niños</h4>
+                        <p>Asiento elevador homologado para niños de 4 a 10 años.</p>
+                    </div>
+                    <div class="extra-action">
+                        <span class="extra-price">+$4.000/día</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" name="booster">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="extra-card">
+                    <div class="extra-info">
+                        <h4>Kit para Mascotas 🐾</h4>
+                        <p>Incluye correa de seguridad vehicular y cobertor protector para los asientos. Viajá tranquilo con tu compañero.</p>
+                    </div>
+                    <div class="extra-action">
+                        <span class="extra-price">+$25.000/alquiler</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" name="pet_kit">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Driver Data Form (Independent section) -->
+            <section class="data-section glass checkout-section">
+                <h2><i class="ph ph-user-circle"></i> Datos del Conductor</h2>
+
+                <form id="checkoutForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre *</label>
+                            <input type="text" id="userName" placeholder="Juan" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellido *</label>
+                            <input type="text" id="userSurname" placeholder="Pérez" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="userEmail" placeholder="juan@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono *</label>
+                            <input type="tel" id="userPhone" placeholder="+54 11 1234-5678" required>
+                        </div>
+                    </div>
+
+                    <!-- Important Info Section -->
+                    <section class="info-disclaimer">
+                        <h3><i class="ph ph-info"></i> Gracias por elegir ABBEY Rent a car. Por favor leé esta información antes de enviar tu consulta:</h3>
+                        <ul>
+                            <li><i class="ph ph-receipt"></i> <strong>Factura Tipo A:</strong> Si necesitás Factura tipo A, solicitala al momento de retirar el vehículo presentando tus datos impositivos en la sucursal.</li>
+                            <li><i class="ph ph-credit-card"></i> <strong>Garantía con Tarjeta de Crédito:</strong> Se requiere una tarjeta de crédito física emitida por un banco para dejar como garantía. No se aceptan tarjetas prepagas, virtuales ni aquellas con código de seguridad dinámico. El titular debe estar presente para firmar el cupón.</li>
+                            <li><i class="ph ph-identification-card"></i> <strong>Licencia de Conducir:</strong> Debe ser nacional o internacional vigente, con un mínimo de 2 años de antigüedad.</li>
+                            <li><i class="ph ph-identification-card"></i> <strong>Licencia de Conducir Extranjera:</strong> Si presentás una licencia emitida en el exterior, debés acompañarla con un documento de identidad o pasaporte del mismo país emisor de la licencia.</li>
+                            <li><i class="ph ph-map-pin"></i> <strong>Precio referencial:</strong> El precio mostrado es una estimación de referencia. La tarifa definitiva será confirmada por nuestro equipo al responder tu consulta, según la disponibilidad y los valores vigentes al momento del alquiler.</li>
+                            <li><i class="ph ph-user-check"></i> <strong>Titular de la Tarjeta:</strong> La persona titular de la tarjeta de crédito utilizada para la reserva o garantía debe estar presente al momento de la entrega del vehículo y firmar el contrato de alquiler.</li>
+                        </ul>
+                    </section>
+
+                    <!-- Terms -->
+                    <div class="terms-check">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" required>
+                            Leí y acepto los <a href="terms.html" class="terms-link">Términos y Condiciones</a> y las <a href="privacidad.html" class="terms-link">Políticas de privacidad</a>
+                        </label>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn-primary btn-reserve">
+                        <i class="ph ph-paper-plane-tilt"></i>
+                        Consultar Disponibilidad
+                    </button>
+                </form>
+            </section>
+
+            <!-- Right Column: Summary Sidebar -->
+            <aside class="checkout-sidebar">
+                <div class="sidebar-sticky glass">
+                    <h3><i class="ph ph-magnifying-glass"></i> Resumen de tu Consulta</h3>
+
+                    <!-- Car Info -->
+                    <div class="sidebar-car">
+                        <div class="sidebar-car-image">
+                            <img src="" alt="Auto" id="sidebarCarImg">
+                        </div>
+                        <div>
+                            <strong id="sidebarCarName">--</strong>
+                            <span class="sidebar-category" id="sidebarCategory">--</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <!-- Rental Details -->
+                    <div class="sidebar-detail">
+                        <i class="ph ph-map-pin"></i>
+                        <div>
+                            <small>Retiro y Devolución</small>
+                            <strong id="sidebarLocation">--</strong>
+                        </div>
+                    </div>
+                    <div class="sidebar-detail">
+                        <i class="ph ph-calendar"></i>
+                        <div>
+                            <small>Fecha retiro</small>
+                            <strong id="sidebarPickup">--</strong>
+                        </div>
+                    </div>
+                    <div class="sidebar-detail">
+                        <i class="ph ph-calendar"></i>
+                        <div>
+                            <small>Fecha devolución</small>
+                            <strong id="sidebarReturn">--</strong>
+                        </div>
+                    </div>
+                    <div class="sidebar-detail">
+                        <i class="ph ph-clock"></i>
+                        <div>
+                            <small>Duración</small>
+                            <strong id="sidebarDays">--</strong>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <!-- Price Breakdown -->
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Tarifa diaria</span>
+                            <span id="sidebarDailyRate">--</span>
+                        </div>
+                        <div class="price-row" id="extrasRow" style="display:none;">
+                            <span>Extras</span>
+                            <span id="sidebarExtras">$0</span>
+                        </div>
+                        <div class="price-row" id="promoRow" style="display:none;">
+                            <span style="color: var(--accent-yellow); font-weight: 700;">Promoción 6+1</span>
+                            <span id="sidebarPromo" style="color: var(--accent-yellow); font-weight: 700;">Aplicada</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Seguro básico</span>
+                            <span>Incluido</span>
+                        </div>
+                        <div class="price-row">
+                            <span>200 KM por día</span>
+                            <span>Incluido</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <!-- Franquicias -->
+                    <div class="franquicia-info">
+                        <div class="price-row">
+                            <span>Franquicia por daños</span>
+                            <strong id="sidebarFranquicia">--</strong>
+                        </div>
+                        <p class="franquicia-disclaimer">
+                            <i class="ph ph-warning-circle"></i>
+                            IMPORTANTE: La franquicia se triplica en caso de vuelco.
+                        </p>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <div class="price-total">
+                        <span>Precio referencial estimado</span>
+                        <strong id="sidebarTotal">--</strong>
+                    </div>
+
+                    <p class="sidebar-note">
+                        <i class="ph ph-info"></i>
+                        Este es un precio de referencia. Nuestro equipo te confirmará la disponibilidad y la tarifa final a la brevedad.
+                    </p>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo-group">
+                    <img src="assets/logo.png" alt="ABBEY Logo">
+                </div>
+                <p>ABBEY Rent a car: Más de 30 años brindando los mejores precios y una atención que nos diferencia.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/abbeyrentacar/" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="https://www.facebook.com/www.abbeyrentacar.com.ar/?locale=es_LA" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+                    <a href="https://wa.me/5491163842564" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="about.html">Sobre Nosotros</a></li>
+                    <li><a href="our-fleet.html">Flota</a></li>
+                    <li><a href="empresas.html">Convenio Empresas</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Términos y Condiciones</a></li>
+                    <li><a href="privacidad.html">Políticas de Privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="tel:+5491163842564"><i class="ph ph-phone"></i> +54 11 6384 2564</a></li>
+                    <li><a href="https://mail.google.com/mail/?view=cm&to=abbeyrentacar@gmail.com" target="_blank"><i class="ph ph-envelope"></i> abbeyrentacar@gmail.com</a></li>
+                    <li><a href="https://www.google.com/maps/place/Abbey+Rent+A+Car/@-34.6270509,-58.4367758,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcca4eae7a6c6b:0x31104204da43200e!8m2!3d-34.6270553!4d-58.4342009!16s%2Fg%2F1v2kym22" target="_blank"><i class="ph ph-map-pin"></i> Buenos Aires, Argentina</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 ABBEY Rent a car. Todos los derechos reservados.</p>
+            <p>Diseñado en Buenos Aires</p>
+        </div>
+    </footer>
+
+    <script src="checkout.js"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      id="whatsapp-float-btn"
+      class="whatsapp-float"
+      href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20alquilar%20un%20auto%20con%20ABBEY%20Rent%20a%20Car."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <span class="whatsapp-float__label">Reservas / Consultas</span>
+      <div class="whatsapp-float__bubble">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+      </div>
+    </a>
+
+</body>
+</html>
+
+
+
+
+
+

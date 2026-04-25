@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convenio Empresas | Abbey Rent a Car</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="checkout.css">
+    <link rel="icon" type="image/png" href="assets/logo-minimalista-fondo.png">
+    <script src="db.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-group">
+                <img src="assets/logo.png" alt="ABBEY Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn-primary" onclick="window.location.href='our-fleet.html'">Alquilar Ahora</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url('assets/hero-bg.jpg') center/cover; padding: 10rem 0 4rem; text-align: center;">
+        <div class="container animate">
+            <span class="section-tag">Soluciones Corporativas</span>
+            <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Convenio Empresas</h1>
+            <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 600px; margin: 0 auto;">Potenciá la movilidad de tu negocio con tarifas preferenciales y atención personalizada.</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <section class="section-padding">
+        <div class="container">
+            
+            <div class="corporate-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: stretch;">
+                
+                <!-- Left Column: Benefits -->
+                <div class="corporate-benefits" style="display: flex; flex-direction: column; gap: 2rem; height: 100%;">
+                    <!-- Card 1 -->
+                    <div class="terms-card glass" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2rem; gap: 1rem;">
+                        <div class="terms-icon" style="width: 50px; height: 50px; font-size: 1.5rem; flex-shrink: 0;"><i class="ph ph-piggy-bank"></i></div>
+                        <div class="terms-content-area">
+                            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Tarifas Low Cost Preferenciales</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">Sabemos que los costos importan. Al establecer un convenio corporativo con ABBEY, tu empresa accede a una escala de tarifas preferenciales exclusivas, optimizando exponencialmente el presupuesto de movilidad de tu equipo sin perder confiabilidad.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="terms-card glass" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2rem; gap: 1rem;">
+                        <div class="terms-icon" style="width: 50px; height: 50px; font-size: 1.5rem; flex-shrink: 0;"><i class="ph ph-handshake"></i></div>
+                        <div class="terms-content-area">
+                            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Atención Ejecutiva Directa</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">No sos un número de cliente más gestionado por un bot. Te asignamos un ejecutivo de cuentas directo para resolver requerimientos, modificaciones o gestiones de contingencia de manera inmediata a través de WhatsApp o teléfono.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="terms-card glass" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2rem; gap: 1rem;">
+                        <div class="terms-icon" style="width: 50px; height: 50px; font-size: 1.5rem; flex-shrink: 0;"><i class="ph ph-file-text"></i></div>
+                        <div class="terms-content-area">
+                            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Facturación Ágil</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">Simplificamos el proceso administrativo de tu empresa. Emitimos comprobantes tipo A o B según corresponda, y procesamos la facturación de forma centralizada con métodos de pago corporativos flexibles y por cuenta corriente.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Form -->
+                <div class="form-container glass" style="padding: 3rem; border-radius: 1.5rem; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="text-center" style="margin-bottom: 2rem;">
+                        <h2 class="section-title" style="font-size: 2rem; margin-bottom: 0.5rem;">Contacto Corporativo</h2>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Completá los datos y nos pondremos en contacto a la brevedad para armar una propuesta a medida.</p>
+                    </div>
+
+                    <form id="corporateForm">
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label>Nombre de la Empresa</label>
+                            <input type="text" name="Empresa" required placeholder="Ej: Tech Solutions S.R.L.">
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="form-group">
+                                <label>Persona de Contacto</label>
+                                <input type="text" name="Contacto" required placeholder="Ej: Juan Pérez">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo / Rol</label>
+                                <input type="text" name="Cargo" required placeholder="Ej: Gerente de Compras">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="form-group">
+                                <label>Correo Electrónico</label>
+                                <input type="email" name="Email" required placeholder="ejemplo@tuempresa.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="text" name="Telefono" required placeholder="Ej: +54 9 11...">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label>Mensaje / Necesidad Estimada</label>
+                            <textarea name="Mensaje" rows="4" style="width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 0.5rem; padding: 1rem; color: var(--text-light); resize: vertical; font-family: inherit;" required placeholder="Ej: Necesitamos alquilar 3 vehículos económicos de lunes a viernes durante 3 meses..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 1rem;">Enviar Solicitud</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <script>
+                document.getElementById('corporateForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const company = this.Empresa.value;
+                    const contact = this.Contacto.value;
+                    const role = this.Cargo.value;
+                    const email = this.Email.value;
+                    const phone = this.Telefono.value;
+                    const msg = this.Mensaje.value;
+                    
+                    const subject = `SOLICITUD CONVENIO EMPRESAS - ${company}`;
+                    let body = `SOLICITUD DE CONVENIO CORPORATIVO\n\n`;
+                    body += `Empresa: ${company}\n`;
+                    body += `Contacto: ${contact} (${role})\n`;
+                    body += `Email: ${email}\n`;
+                    body += `Teléfono: ${phone}\n\n`;
+                    body += `Mensaje/Necesidad:\n${msg}`;
+                    
+                    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=abbeyrentacar@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    
+                    window.open(gmailUrl, '_blank');
+                });
+            </script>
+            
+            <style>
+                @media (max-width: 900px) {
+                    .corporate-layout {
+                        grid-template-columns: 1fr !important;
+                        gap: 3rem !important;
+                    }
+                    .form-container {
+                        position: static !important;
+                        padding: 2rem !important;
+                    }
+                }
+            </style>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-group">
+                        <img src="assets/logo.png" alt="ABBEY Logo">
+                    </a>
+                    <p>ABBEY Rent a car: Más de 30 años brindando los mejores precios y una atención que nos diferencia.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/abbeyrentacar/" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="https://www.facebook.com/www.abbeyrentacar.com.ar/?locale=es_LA" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="https://wa.me/5491163842564" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="about.html">Sobre Nosotros</a></li>
+                        <li><a href="our-fleet.html">Flota</a></li>
+                        <li><a href="empresas.html">Convenio Empresas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="terms.html">Términos y Condiciones</a></li>
+                        <li><a href="privacidad.html">Políticas de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="tel:+5491163842564"><i class="ph ph-phone"></i> +54 11 6384 2564</a></li>
+                        <li><a href="https://mail.google.com/mail/?view=cm&to=abbeyrentacar@gmail.com" target="_blank"><i class="ph ph-envelope"></i> abbeyrentacar@gmail.com</a></li>
+                        <li><a href="https://www.google.com/maps/place/Abbey+Rent+A+Car/@-34.6270509,-58.4367758,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcca4eae7a6c6b:0x31104204da43200e!8m2!3d-34.6270553!4d-58.4342009!16s%2Fg%2F1v2kym22" target="_blank"><i class="ph ph-map-pin"></i> Buenos Aires, Argentina</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ABBEY Rent a car. Todos los derechos reservados.</p>
+                <p>Diseñado en Buenos Aires</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      id="whatsapp-float-btn"
+      class="whatsapp-float"
+      href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20alquilar%20un%20auto%20con%20ABBEY%20Rent%20a%20Car."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <span class="whatsapp-float__label">Reservas / Consultas</span>
+      <div class="whatsapp-float__bubble">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+      </div>
+    </a>
+
+</body>
+</html>
+
+
+
+
+
+
+

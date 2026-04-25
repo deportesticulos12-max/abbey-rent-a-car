@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Abbey Rent a Car</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="checkout.css">
+    <link rel="stylesheet" href="about.css">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: left;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-yellow);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(241, 196, 15, 0.1);
+            color: var(--accent-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 1rem;
+        }
+
+        .info-card h4 {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+            word-break: break-word;
+        }
+
+        .map-wrapper {
+            width: 100%;
+            height: 350px;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            /* Dark mode filter for google maps */
+            filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(85%);
+            transition: var(--transition);
+        }
+        
+        .map-wrapper:hover {
+            filter: invert(90%) hue-rotate(180deg) brightness(100%) contrast(100%);
+            border-color: var(--accent-yellow);
+        }
+
+        @media (max-width: 960px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .contact-info-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .contact-info-cards {
+                grid-template-columns: 1fr;
+            }
+            .contact-form-row {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            .form-container {
+                padding: 1.5rem !important;
+            }
+        }
+        
+        .contact-form-row {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 1.5rem;
+        }
+    </style>
+    <link rel="icon" type="image/png" href="assets/logo-minimalista-fondo.png">
+    <script src="db.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-group">
+                <img src="assets/logo.png" alt="ABBEY Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html" style="color: var(--accent-yellow);">Contacto</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn-primary" onclick="window.location.href='our-fleet.html'">Alquilar Ahora</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url('assets/hero-bg.jpg') center/cover; padding: 10rem 0 4rem; text-align: center;">
+        <div class="container animate">
+            <span class="section-tag">Asistencia Rápida</span>
+            <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Comunicate con nuestro equipo</h1>
+            <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 600px; margin: 0 auto;">Estamos para ayudarte a organizar tu viaje. Escribinos o visitanos en nuestra oficina.</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <!-- Left Column: Map & Form -->
+                <div style="display: flex; flex-direction: column; gap: 3rem;">
+                    
+                    <!-- Map Embed (clickable) -->
+                    <div>
+                        <h4 style="color: var(--text-light); margin-bottom: 1rem; font-size: 1.25rem;">Nuestra Oficina</h4>
+
+                        <!-- Mapa clickable: abre Google Maps al tocar -->
+                        <a href="https://www.google.com/maps/place/Abbey+Rent+A+Car/@-34.6270509,-58.4367758,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcca4eae7a6c6b:0x31104204da43200e!8m2!3d-34.6270553!4d-58.4342009!16s%2Fg%2F1v2kym22"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           title="Ver en Google Maps"
+                           style="display: block; position: relative; height: 300px; border-radius: 1.5rem; overflow: hidden; cursor: pointer; border: 1px solid var(--glass-border); transition: border-color 0.3s ease;"
+                           onmouseover="this.style.borderColor='var(--accent-yellow)'"
+                           onmouseout="this.style.borderColor='var(--glass-border)'">
+                            <iframe
+                                src="https://maps.google.com/maps?q=Jose+Maria+Moreno+717+Caballito+Buenos+Aires&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                                width="100%"
+                                height="100%"
+                                style="border:0; display:block; pointer-events:none; filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(85%);"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <!-- Badge encima del mapa -->
+                            <div style="position:absolute; bottom:12px; left:50%; transform:translateX(-50%); background:var(--accent-yellow); color:#000; font-weight:700; font-size:0.78rem; padding:0.4rem 1rem; border-radius:99px; white-space:nowrap; display:flex; align-items:center; gap:0.4rem; z-index:3; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                                <i class="ph ph-navigation-arrow"></i> Clic para abrir en Google Maps
+                            </div>
+                        </a>
+
+                        <!-- Tarjeta de dirección y horarios -->
+                        <div class="glass" style="margin-top: 1rem; padding: 1.25rem 1.5rem; border-radius: 1rem; display: flex; flex-direction: column; gap: 0.85rem;">
+                            <div style="display:flex; align-items:flex-start; gap:0.85rem;">
+                                <i class="ph ph-map-pin" style="color:var(--accent-yellow); font-size:1.35rem; flex-shrink:0; margin-top:2px;"></i>
+                                <div>
+                                    <strong style="color:var(--text-light); display:block; margin-bottom:0.15rem;">José María Moreno 717, Caballito</strong>
+                                    <span style="color:var(--text-muted); font-size:0.875rem;">CABA · Hacé clic en el mapa para cómo llegar</span>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:0.85rem;">
+                                <i class="ph ph-clock" style="color:var(--accent-yellow); font-size:1.35rem; flex-shrink:0;"></i>
+                                <span style="color:var(--text-muted); font-size:0.9rem;">Lunes a Viernes: 09:00 – 18:00 hs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="form-container glass" style="padding: 3rem; border-radius: 1.5rem;">
+                        <div style="margin-bottom: 2.5rem;">
+                            <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-light);">Envianos un Mensaje</h2>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Respondemos todas las consultas en menos de 24 horas hábiles.</p>
+                        </div>
+
+                        <form id="contactForm">
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label>Nombre Completo</label>
+                                <input type="text" name="Nombre" required placeholder="Ej: Juan Pérez">
+                            </div>
+                            
+                            <div class="contact-form-row" style="margin-bottom: 1.5rem;">
+                                <div class="form-group">
+                                    <label>Correo Electrónico</label>
+                                    <input type="email" name="Email" required placeholder="ejemplo@correo.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Teléfono / WhatsApp</label>
+                                    <input type="text" name="Telefono" required placeholder="Ej: +54 9 11...">
+                                </div>
+                            </div>
+ 
+                            <div class="form-group" style="margin-bottom: 2rem;">
+                                <label>Asunto / Consulta</label>
+                                <textarea name="Mensaje" rows="5" style="width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 0.5rem; padding: 1rem; color: var(--text-light); resize: vertical; font-family: inherit;" required placeholder="¿En qué podemos ayudarte?"></textarea>
+                            </div>
+ 
+                            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 1rem;">
+                                Envia tu Mensaje <i class="ph ph-paper-plane-right"></i>
+                            </button>
+                        </form>
+                    </div>
+ 
+                </div>
+ 
+                <script>
+                    document.getElementById('contactForm').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const name = this.Nombre.value;
+                        const email = this.Email.value;
+                        const phone = this.Telefono.value;
+                        const msg = this.Mensaje.value;
+                        
+                        let waMsg = `*MENSAJE DESDE LA WEB - ABBEY RENT A CAR*\n\n`;
+                        waMsg += `*Nombre:* ${name}\n`;
+                        waMsg += `*Email:* ${email}\n`;
+                        waMsg += `*Teléfono:* ${phone}\n\n`;
+                        waMsg += `*Mensaje:* ${msg}\n\n`;
+                        waMsg += `_Enviado desde la sección de contacto._`;
+                        
+                        const waUrl = `https://wa.me/5491163842564?text=${encodeURIComponent(waMsg)}`;
+                        
+                        // --- Google Sheets Integration (Background) ---
+                        const sheetData = {
+                            name: name,
+                            surname: '',
+                            email: email,
+                            phone: phone,
+                            carName: 'CONSULTA GRAL',
+                            pickup: new Date().toLocaleDateString('es-AR'),
+                            return: '-',
+                            days: 0,
+                            extras: msg,
+                            total: '$0'
+                        };
+
+                        fetch('https://script.google.com/macros/s/AKfycbw4lYIUCAWRY4vlnH9SaBRr2WIZOBucb1ybU3nrd7aYS-CQjTKM1M71KYFVc423wVq5/exec', {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(sheetData)
+                        }).catch(err => console.error('Sheet sync error:', err));
+                        // ---------------------------------------------
+
+                        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                        if (isMobile) {
+                            window.location.href = waUrl;
+                        } else {
+                            window.open(waUrl, '_blank');
+                        }
+                    });
+                </script>
+
+                <!-- Right Column: Details Cards -->
+                <div style="position: sticky; top: 120px; height: fit-content;">
+                    <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--text-light);">Información de Contacto</h2>
+                    
+                    <div class="contact-info-cards" style="grid-template-columns: 1fr; gap: 1.25rem;">
+                        <!-- Card 1 -->
+                        <a href="https://wa.me/5491163842564" target="_blank" class="info-card glass" style="flex-direction: row; align-items: center; gap: 1.5rem; padding: 1.5rem;">
+                            <div class="info-icon"><i class="ph ph-whatsapp-logo"></i></div>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <p>+54 9 11 6384-2564</p>
+                            </div>
+                        </a>
+                        <!-- Card 2 -->
+                        <div class="info-card glass" style="flex-direction: row; align-items: flex-start; gap: 1.5rem; padding: 1.5rem; cursor: default;">
+                            <div class="info-icon"><i class="ph ph-phone"></i></div>
+                            <div>
+                                <h4>Llamanos</h4>
+                                <p style="margin-bottom: 0.25rem;"><a href="tel:49254817" style="color: var(--text-muted); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-yellow)'" onmouseout="this.style.color='var(--text-muted)'">4925 - 4817</a></p>
+                                <p style="margin-bottom: 0.25rem;"><a href="tel:49241984" style="color: var(--text-muted); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-yellow)'" onmouseout="this.style.color='var(--text-muted)'">4924 - 1984</a></p>
+                                <p><a href="tel:49233194" style="color: var(--text-muted); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-yellow)'" onmouseout="this.style.color='var(--text-muted)'">4923 - 3194</a></p>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <a href="https://mail.google.com/mail/?view=cm&to=abbeyrentacar@gmail.com" target="_blank" class="info-card glass" style="flex-direction: row; align-items: center; gap: 1.5rem; padding: 1.5rem;">
+                            <div class="info-icon"><i class="ph ph-envelope"></i></div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>abbeyrentacar@gmail.com</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-group">
+                        <img src="assets/logo.png" alt="ABBEY Logo">
+                    </a>
+                    <p>ABBEY Rent a car: Más de 30 años brindando los mejores precios y una atención que nos diferencia.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/abbeyrentacar/" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="https://www.facebook.com/www.abbeyrentacar.com.ar/?locale=es_LA" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="https://wa.me/5491163842564" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="about.html">Sobre Nosotros</a></li>
+                        <li><a href="our-fleet.html">Flota</a></li>
+                        <li><a href="empresas.html">Convenio Empresas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="terms.html">Términos y Condiciones</a></li>
+                        <li><a href="privacidad.html">Políticas de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="tel:+5491163842564"><i class="ph ph-phone"></i> +54 11 6384 2564</a></li>
+                        <li><a href="https://mail.google.com/mail/?view=cm&to=abbeyrentacar@gmail.com" target="_blank"><i class="ph ph-envelope"></i> abbeyrentacar@gmail.com</a></li>
+                        <li><a href="https://www.google.com/maps/place/Abbey+Rent+A+Car/@-34.6270509,-58.4367758,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcca4eae7a6c6b:0x31104204da43200e!8m2!3d-34.6270553!4d-58.4342009!16s%2Fg%2F1v2kym22" target="_blank"><i class="ph ph-map-pin"></i> Buenos Aires, Argentina</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ABBEY Rent a car. Todos los derechos reservados.</p>
+                <p>Diseñado en Buenos Aires</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      id="whatsapp-float-btn"
+      class="whatsapp-float"
+      href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20alquilar%20un%20auto%20con%20ABBEY%20Rent%20a%20Car."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <span class="whatsapp-float__label">Reservas / Consultas</span>
+      <div class="whatsapp-float__bubble">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+      </div>
+    </a>
+
+</body>
+</html>
+
+
+
+
+
+
+

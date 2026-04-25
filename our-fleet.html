@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Flota | ABBEY Rent a car</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fleet.css">
+    <link rel="icon" type="image/png" href="assets/logo-minimalista-fondo.png">
+    <script src="db.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="scrolled">
+        <div class="container">
+            <a href="index.html" class="logo-group">
+                <img src="assets/logo.png" alt="ABBEY Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-primary" onclick="window.location.href='index.html'">
+                    <i class="ph ph-calendar-plus"></i>
+                    Reservar ahora
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="section-padding" style="padding-top: 140px; padding-bottom: 2rem; background: var(--bg-darker); border-bottom: 1px solid var(--glass-border);">
+        <div class="container text-center">
+            <h1 style="font-size: 2.5rem; color: var(--text-light); margin-bottom: 0.5rem;">Nuestra <span style="color: var(--accent-yellow);">Flota</span></h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Conocé todos los vehículos que tenemos a tu disposición. Elegí el que mejor se adapte a tu viaje e iniciá tu reserva.</p>
+        </div>
+    </section>
+
+    <!-- Main Content: Sidebar + Car List -->
+    <main class="fleet-page" style="padding-top: 2rem;">
+        <div class="container fleet-layout">
+
+            <!-- Sidebar Filters -->
+            <aside class="fleet-sidebar glass" style="top: 120px;">
+                <h3><i class="ph ph-funnel"></i> Filtros</h3>
+
+                <div class="filter-group">
+                    <h4>Categoría</h4>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="economy" checked> Económico
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="familiar" checked> Familiar
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="confort" checked> Confort
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="utilitario" checked> Utilitario
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Transmisión</h4>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="manual" checked> Manual
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="auto" checked> Automático
+                    </label>
+                </div>
+            </aside>
+
+            <!-- Car Listing -->
+            <section class="fleet-list">
+                <p class="fleet-results"><strong>9</strong> vehículos disponibles</p>
+
+                <div class="showcase-grid">
+                    <!-- Card 1: Chevrolet Onix -->
+                    <div class="showcase-card" data-category="economy" data-transmission="manual">
+                        <div class="showcase-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-onix.png" alt="Chevrolet Onix" class="car-photo">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>Chevrolet Onix</h3>
+                            <p class="showcase-desc">Un vehículo compacto y ágil, ideal para moverte por la ciudad con bajo consumo de combustible y practicidad.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                                <span><i class="ph ph-briefcase"></i> 2 valijas chicas</span>
+                                <span><i class="ph ph-gear"></i> Manual</span>
+                                <span><i class="ph ph-snowflake"></i> Aire Acondicionado</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: VW Gol Trend 2017 -->
+                    <div class="showcase-card" data-category="economy" data-transmission="manual">
+                        <div class="showcase-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-gol.png" alt="VW Gol Trend 2017" class="car-photo">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>VW Gol Trend</h3>
+                            <p class="showcase-desc">Un clásico indiscutido y confiable. Robusto, rendidor y perfecto para transitar la ciudad con total tranquilidad y bajo consumo.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                                <span><i class="ph ph-briefcase"></i> 2 valijas chicas</span>
+                                <span><i class="ph ph-gear"></i> Manual</span>
+                                <span><i class="ph ph-snowflake"></i> Aire Acondicionado</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: Ford Ka 2019 -->
+                    <div class="showcase-card" data-category="economy" data-transmission="manual">
+                        <div class="showcase-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-ka.png" alt="Ford Ka 2019" class="car-photo">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>Ford Ka</h3>
+                            <p class="showcase-desc">Diseño moderno con un interior sorprendentemente amplio. Ágil, fácil de estacionar e ideal para el tránsito urbano.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                                <span><i class="ph ph-briefcase"></i> 1 valija grande</span>
+                                <span><i class="ph ph-gear"></i> Manual</span>
+                                <span><i class="ph ph-snowflake"></i> Aire Acondicionado</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: Chevrolet Prisma -->
+                    <div class="showcase-card" data-category="economy" data-transmission="manual">
+                        <div class="showcase-image">
+                            <span class="category-badge">Económico</span>
+                            <img src="assets/car-prisma.png" alt="Chevrolet Prisma" class="car-photo">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>Chevrolet Prisma</h3>
+                            <p class="showcase-desc">Sedán económico con mayor espacio de baúl que un hatchback convencional. Excelente opción para escapadas de fin de semana.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                                <span><i class="ph ph-briefcase"></i> 2 valijas grandes</span>
+                                <span><i class="ph ph-gear"></i> Manual</span>
+                                <span><i class="ph ph-snowflake"></i> Aire Acondicionado</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: VW Suran -->
+                    <div class="showcase-card" data-category="familiar" data-transmission="manual">
+                        <div class="showcase-image">
+                            <span class="category-badge suv">Familiar</span>
+                            <img src="assets/car-suran.png" alt="Volkswagen Suran" class="car-photo">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>Volkswagen Suran</h3>
+                            <p class="showcase-desc">Vehículo rural muy espacioso, con gran capacidad de carga y habitabilidad para que toda la familia viaje cómoda.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                                <span><i class="ph ph-briefcase"></i> 3 valijas grandes</span>
+                                <span><i class="ph ph-gear"></i> Manual</span>
+                                <span><i class="ph ph-snowflake"></i> Aire Acondicionado</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Chevrolet Spin -->
+                    <div class="showcase-card" data-category="familiar" data-transmission="manual">
+                        <div class="showcase-image">
+                            <span class="category-badge suv">Familiar</span>
+                            <img src="assets/car-spin.png" alt="Chevrolet Spin" class="car-photo">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>Chevrolet Spin</h3>
+                            <p class="showcase-desc">Miniván amplia con espacio interior inmejorable y techo elevado. Perfecta para viajes largos con mucho equipaje.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                                <span><i class="ph ph-briefcase"></i> 3 valijas grandes</span>
+                                <span><i class="ph ph-gear"></i> Manual</span>
+                                <span><i class="ph ph-snowflake"></i> Aire Acondicionado</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Toyota Corolla -->
+                    <div class="showcase-card" data-category="confort" data-transmission="auto">
+                        <div class="showcase-image">
+                            <span class="category-badge premium">Confort</span>
+                            <img src="assets/car-corolla.png" alt="Toyota Corolla" class="car-photo">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>Toyota Corolla</h3>
+                            <p class="showcase-desc">Un sedán moderno y automático que ofrece máxima suavidad en el manejo, tecnología de punta y seguridad integral.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                                <span><i class="ph ph-briefcase"></i> 3 valijas grandes</span>
+                                <span><i class="ph ph-gear"></i> Automático</span>
+                                <span><i class="ph ph-snowflake"></i> Climatizador</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: VW Golf TSI -->
+                    <div class="showcase-card" data-category="confort" data-transmission="manual">
+                        <div class="showcase-image">
+                            <span class="category-badge premium">Confort</span>
+                            <img src="assets/car-golf.png" alt="Volkswagen Golf TSI" class="car-photo">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>Volkswagen Golf TSI</h3>
+                            <p class="showcase-desc">Deportivo, seguro y con excelente insonorización. Para los que buscan sensaciones de manejo superiores en ciudad o ruta.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                                <span><i class="ph ph-briefcase"></i> 2 valijas</span>
+                                <span><i class="ph ph-gear"></i> Manual</span>
+                                <span><i class="ph ph-snowflake"></i> Climatizador</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Fiat Fiorino -->
+                    <div class="showcase-card" data-category="utilitario" data-transmission="manual">
+                        <div class="showcase-image">
+                            <span class="category-badge utility">Utilitario</span>
+                            <img src="assets/car-fiorino.png" alt="Fiat Fiorino" class="car-photo" onerror="this.src='assets/car-onix.png';">
+                        </div>
+                        <div class="showcase-details">
+                            <h3>Fiat Fiorino</h3>
+                            <p class="showcase-desc">Furgón liviano, ágil y de mantenimiento económico. La herramienta ideal tanto para tareas logísticas como para traslados particulares que requieran gran capacidad de carga.</p>
+                            
+                            <div class="showcase-specs">
+                                <span><i class="ph ph-users"></i> 2 pasajeros</span>
+                                <span><i class="ph ph-package"></i> Furgón de Carga</span>
+                                <span><i class="ph ph-gear"></i> Manual</span>
+                                <span><i class="ph ph-snowflake"></i> Aire Acondicionado</span>
+                                <span><i class="ph ph-gas-pump"></i> Nafta</span>
+                            </div>
+
+                            <div class="showcase-footer">
+                                <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="window.location.href='index.html'">Averiguar Disponibilidad</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo-group">
+                    <img src="assets/logo.png" alt="ABBEY Logo">
+                </div>
+                <p>ABBEY Rent a car: Más de 30 años brindando los mejores precios y una atención que nos diferencia.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/abbeyrentacar/" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="https://www.facebook.com/www.abbeyrentacar.com.ar/?locale=es_LA" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+                    <a href="https://wa.me/5491163842564" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="about.html">Sobre Nosotros</a></li>
+                    <li><a href="our-fleet.html">Flota</a></li>
+                    <li><a href="empresas.html">Convenio Empresas</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Términos y Condiciones</a></li>
+                    <li><a href="privacidad.html">Políticas de Privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="tel:+5491163842564"><i class="ph ph-phone"></i> +54 11 6384 2564</a></li>
+                    <li><a href="https://mail.google.com/mail/?view=cm&to=abbeyrentacar@gmail.com" target="_blank"><i class="ph ph-envelope"></i> abbeyrentacar@gmail.com</a></li>
+                    <li><a href="https://www.google.com/maps/place/Abbey+Rent+A+Car/@-34.6270509,-58.4367758,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcca4eae7a6c6b:0x31104204da43200e!8m2!3d-34.6270553!4d-58.4342009!16s%2Fg%2F1v2kym22" target="_blank"><i class="ph ph-map-pin"></i> Buenos Aires, Argentina</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 ABBEY Rent a car. Todos los derechos reservados.</p>
+            <p>Diseñado en Buenos Aires</p>
+        </div>
+    </footer>
+
+    <script src="our-fleet.js"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      id="whatsapp-float-btn"
+      class="whatsapp-float"
+      href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20alquilar%20un%20auto%20con%20ABBEY%20Rent%20a%20Car."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <span class="whatsapp-float__label">Reservas / Consultas</span>
+      <div class="whatsapp-float__bubble">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+      </div>
+    </a>
+
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,617 @@
+/* ========== Fleet Selection Page Styles ========== */
+
+/* Stepper */
+.stepper-section {
+  padding-top: 100px;
+  padding-bottom: 1.5rem;
+  background: var(--bg-darker);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 100px;
+}
+
+.step span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.step.active span {
+  color: var(--accent-yellow);
+  font-weight: 700;
+}
+
+.step.completed span {
+  color: var(--primary-violet-light);
+}
+
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.step.active .step-circle {
+  background: var(--accent-yellow);
+  color: var(--bg-darker);
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);
+}
+
+.step.completed .step-circle {
+  background: var(--primary-violet);
+  border-color: var(--primary-violet-light);
+  color: white;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.step.completed .step-circle:hover {
+  background: var(--primary-violet-light);
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(106, 52, 178, 0.5);
+}
+
+.step-line {
+  width: 60px;
+  height: 2px;
+  background: var(--glass-border);
+  margin-bottom: 1.5rem;
+}
+
+.step-line.completed-line {
+  background: var(--primary-violet-light);
+}
+
+/* Summary Bar */
+.summary-bar {
+  background: rgba(75, 35, 131, 0.15);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 1rem 0;
+}
+
+.summary-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.summary-item i {
+  font-size: 1.25rem;
+  color: var(--accent-yellow);
+}
+
+.summary-item small {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-item strong {
+  font-size: 0.9rem;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--glass-border);
+}
+
+.btn-edit {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+}
+
+.btn-edit:hover {
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
+}
+
+/* Fleet Page Layout */
+.fleet-page {
+  padding: 2.5rem 0 5rem;
+}
+
+.fleet-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* Sidebar */
+.fleet-sidebar {
+  padding: 1.5rem;
+  position: sticky;
+  top: 100px;
+}
+
+.fleet-sidebar h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent-yellow);
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group h4 {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.filter-checkbox:hover {
+  color: var(--accent-yellow);
+}
+
+.filter-checkbox input[type="checkbox"] {
+  accent-color: var(--accent-yellow);
+  width: 16px;
+  height: 16px;
+}
+
+.filter-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--text-light);
+  outline: none;
+  font-size: 0.85rem;
+}
+
+.filter-select option {
+  background-color: white;
+  color: #1e293b;
+}
+
+/* Fleet Results Count */
+.fleet-results {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.fleet-results strong {
+  color: var(--accent-yellow);
+}
+
+/* Fleet Cards (Horizontal) */
+.fleet-card {
+  display: grid;
+  grid-template-columns: 200px 1fr 220px;
+  gap: 0;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.fleet-card:hover {
+  border-color: var(--accent-yellow);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Image / Placeholder */
+.fleet-card-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+}
+
+.category-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background: var(--primary-violet);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.category-badge.suv {
+  background: #166534;
+}
+
+.category-badge.premium {
+  background: linear-gradient(135deg, #92400e, #d97706);
+}
+
+.category-badge.utility {
+  background: #0369a1;
+}
+
+.car-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Card Details */
+.fleet-card-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  border-right: 1px solid var(--glass-border);
+}
+
+.fleet-card-details h3 {
+  font-size: 1.2rem;
+}
+
+.similar {
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.fleet-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.fleet-specs span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.fleet-extras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--primary-violet-light);
+}
+
+.fleet-extras span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Card Pricing Area */
+.fleet-card-pricing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.015);
+  border-left: 1px solid var(--glass-border);
+}
+
+.price-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.price-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.price-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.price-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-light);
+  line-height: 1;
+}
+
+.price-option.highlight .price-value {
+  color: var(--accent-yellow);
+  text-shadow: 0 0 20px rgba(241, 196, 15, 0.2);
+}
+
+.fleet-card-pricing .btn-primary {
+  width: 100%;
+  max-width: 160px;
+}
+
+/* ========== Showcase Grid (our-fleet.html) ========== */
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.showcase-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: var(--transition);
+  position: relative;
+}
+
+.showcase-card:hover {
+  border-color: var(--accent-yellow);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.showcase-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+  height: 180px;
+}
+
+.showcase-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.showcase-details h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.showcase-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.showcase-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.showcase-specs span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.showcase-specs i {
+  color: var(--accent-yellow);
+}
+
+.showcase-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1rem;
+}
+
+/* ========== Mobile Responsive ========== */
+@media (max-width: 1024px) {
+  .fleet-card {
+    grid-template-columns: 160px 1fr 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 100px; /* Offset for fixed navbar */
+  }
+
+  /* Stepper Mobile - Clean & Compact */
+  .stepper-section {
+    padding: 0.5rem 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-circle {
+    width: 22px;
+    height: 22px;
+    font-size: 0.7rem;
+  }
+
+  .step span {
+    display: none; /* Hide step labels by default */
+  }
+
+  .step.active span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 6px;
+  }
+
+  .step-line {
+    width: 20px;
+    height: 1px;
+  }
+
+  /* Summary Bar Mobile - Date | Date (Hertz Style) */
+  .summary-bar {
+    padding: 0.6rem 0;
+    background: rgba(75, 35, 131, 0.35);
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-content {
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+  }
+
+  /* Hide everything except Pickup and Return dates */
+  .summary-content .summary-item:nth-child(1),
+  .summary-content .summary-divider:nth-child(6),
+  .summary-content .summary-item:nth-child(7),
+  .summary-content .btn-edit {
+    display: none !important;
+  }
+
+  .summary-item i, 
+  .summary-item small {
+    display: none !important;
+  }
+
+  .summary-item strong {
+    font-size: 0.85rem;
+    color: #fff;
+    font-family: inherit;
+  }
+
+  .summary-divider {
+    display: block;
+    height: 14px;
+    width: 1px !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* Fleet Layout - Cars First, Filters Last */
+  .fleet-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fleet-list {
+    order: 1;
+  }
+
+  .fleet-results {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .fleet-sidebar {
+    order: 2;
+    margin-top: 3rem;
+    display: block;
+    padding: 2rem 1.5rem;
+    background: rgba(15, 23, 42, 0.5);
+  }
+
+  /* Compact Cards */
+  .fleet-card {
+    grid-template-columns: 1fr;
+    border-radius: 1rem;
+  }
+
+  .fleet-card-image {
+    height: 200px;
+  }
+
+  .fleet-card-details {
+    padding: 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .fleet-card-pricing {
+    flex-direction: column;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    gap: 1rem;
+  }
+
+  .price-value {
+    font-size: 1.7rem;
+  }
+
+  .fleet-card-pricing .btn-primary {
+    max-width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  /* Fix para "Nuestra Flota" que colapsa en 3 columnas en móviles */
+  .showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}

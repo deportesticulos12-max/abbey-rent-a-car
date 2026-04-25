@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegí tu auto | ABBEY Rent a car</title>
+    <meta name="description" content="Conocé nuestra flota de vehículos para alquilar. Desde compactos económicos hasta familiares espaciosos. Precios transparentes y actualizados.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Nuestra Flota | ABBEY Rent a car">
+    <meta property="og:description" content="Elegí el auto ideal para tu próximo viaje.">
+    <meta property="og:image" content="https://abbeyrentacar.ar/assets/logo-minimalista-fondo.png">
+    <meta property="og:url" content="https://abbeyrentacar.ar/fleet.html">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fleet.css">
+    <link rel="icon" type="image/png" href="assets/logo-minimalista-fondo.png">
+    <script src="db.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="scrolled">
+        <div class="container">
+            <a href="index.html" class="logo-group">
+                <img src="assets/logo.png" alt="ABBEY Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-primary" onclick="window.location.href='index.html'">
+                    <i class="ph ph-arrow-left"></i>
+                    Volver
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Stepper -->
+    <section class="stepper-section">
+        <div class="container">
+            <div class="stepper">
+                <div class="step completed">
+                    <div class="step-circle" onclick="window.location.href='index.html'" title="Volver a Fecha y Lugar"><i class="ph ph-check"></i></div>
+                    <span>Fecha y Lugar</span>
+                </div>
+                <div class="step-line completed-line"></div>
+                <div class="step active">
+                    <div class="step-circle">2</div>
+                    <span>Elegí tu auto</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <span>Extras</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <span>Confirmación</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Summary Bar -->
+    <section class="summary-bar">
+        <div class="container">
+            <div class="summary-content">
+                <div class="summary-item">
+                    <i class="ph ph-map-pin"></i>
+                    <div>
+                        <small>Retiro</small>
+                        <strong id="summaryLocation">Sucursal Caballito</strong>
+                    </div>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-item">
+                    <i class="ph ph-calendar"></i>
+                    <div>
+                        <small>Fecha retiro</small>
+                        <strong id="summaryPickup">--</strong>
+                    </div>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-item">
+                    <i class="ph ph-calendar"></i>
+                    <div>
+                        <small>Fecha devolución</small>
+                        <strong id="summaryReturn">--</strong>
+                    </div>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-item">
+                    <i class="ph ph-clock"></i>
+                    <div>
+                        <small>Días</small>
+                        <strong id="summaryDays">--</strong>
+                    </div>
+                </div>
+                <button class="btn-edit" onclick="window.location.href='index.html'">
+                    <i class="ph ph-pencil"></i> Modificar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content: Sidebar + Car List -->
+    <main class="fleet-page">
+        <div class="container fleet-layout">
+
+            <!-- Sidebar Filters -->
+            <aside class="fleet-sidebar glass">
+                <h3><i class="ph ph-funnel"></i> Filtros</h3>
+
+                <div class="filter-group">
+                    <h4>Categoría</h4>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="economy" checked> Económico
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="familiar" checked> Familiar
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="confort" checked> Confort
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="utilitario" checked> Utilitario
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Transmisión</h4>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="manual" checked> Manual
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" value="auto" checked> Automático
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Ordenar por</h4>
+                    <select class="filter-select">
+                        <option value="price-asc">Precio: menor a mayor</option>
+                        <option value="price-desc">Precio: mayor a menor</option>
+                        <option value="category">Categoría</option>
+                    </select>
+                </div>
+            </aside>
+
+            <!-- Car Listing -->
+            <section class="fleet-list">
+                <p class="fleet-results"><strong>6</strong> vehículos disponibles</p>
+
+                <!-- Card 1: Chevrolet Onix -->
+                <div class="fleet-card glass" data-car-name="Chevrolet Onix" data-category="economy" data-transmission="manual">
+                    <div class="fleet-card-image">
+                        <span class="category-badge">Económico</span>
+                        <img src="assets/car-onix.png" alt="Chevrolet Onix" class="car-photo">
+                    </div>
+                    <div class="fleet-card-details">
+                        <h3>Chevrolet Onix <span class="similar">o similar</span></h3>
+                        <div class="fleet-specs">
+                            <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                            <span><i class="ph ph-briefcase"></i> 2 valijas</span>
+                            <span><i class="ph ph-gear"></i> Manual</span>
+                            <span><i class="ph ph-snowflake"></i> Aire acondicionado</span>
+                        </div>
+                        <div class="fleet-extras">
+                            <span><i class="ph ph-road-horizon"></i> 200km por día</span>
+                            <span><i class="ph ph-shield-check"></i> Seguro básico incluido</span>
+                        </div>
+                    </div>
+                    <div class="fleet-card-pricing">
+                        <div class="price-option highlight">
+                            <div class="price-group">
+                                <span class="price-label">Precio por d&iacute;a</span>
+                                <span class="price-value">$75.000</span>
+                            </div>
+                            <button class="btn-primary">Consultar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Chevrolet Prisma -->
+                <div class="fleet-card glass" data-car-name="Chevrolet Prisma" data-category="economy" data-transmission="manual">
+                    <div class="fleet-card-image">
+                        <span class="category-badge">Económico</span>
+                        <img src="assets/car-prisma.png" alt="Chevrolet Prisma" class="car-photo">
+                    </div>
+                    <div class="fleet-card-details">
+                        <h3>Chevrolet Prisma <span class="similar">o similar</span></h3>
+                        <div class="fleet-specs">
+                            <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                            <span><i class="ph ph-briefcase"></i> 2 valijas</span>
+                            <span><i class="ph ph-gear"></i> Manual</span>
+                            <span><i class="ph ph-snowflake"></i> Aire acondicionado</span>
+                        </div>
+                        <div class="fleet-extras">
+                            <span><i class="ph ph-road-horizon"></i> 200km por día</span>
+                            <span><i class="ph ph-shield-check"></i> Seguro básico incluido</span>
+                        </div>
+                    </div>
+                    <div class="fleet-card-pricing">
+                        <div class="price-option highlight">
+                            <div class="price-group">
+                                <span class="price-label">Precio por d&iacute;a</span>
+                                <span class="price-value">$85.000</span>
+                            </div>
+                            <button class="btn-primary">Consultar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: VW Suran -->
+                <div class="fleet-card glass" data-car-name="Volkswagen Suran" data-category="familiar" data-transmission="manual">
+                    <div class="fleet-card-image">
+                        <span class="category-badge suv">Familiar</span>
+                        <img src="assets/car-suran.png" alt="Volkswagen Suran" class="car-photo">
+                    </div>
+                    <div class="fleet-card-details">
+                        <h3>Volkswagen Suran <span class="similar">o similar</span></h3>
+                        <div class="fleet-specs">
+                            <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                            <span><i class="ph ph-briefcase"></i> 3 valijas</span>
+                            <span><i class="ph ph-gear"></i> Manual</span>
+                            <span><i class="ph ph-snowflake"></i> Aire acondicionado</span>
+                        </div>
+                        <div class="fleet-extras">
+                            <span><i class="ph ph-road-horizon"></i> 200km por día</span>
+                            <span><i class="ph ph-shield-check"></i> Seguro básico incluido</span>
+                        </div>
+                    </div>
+                    <div class="fleet-card-pricing">
+                        <div class="price-option highlight">
+                            <div class="price-group">
+                                <span class="price-label">Precio por d&iacute;a</span>
+                                <span class="price-value">$95.000</span>
+                            </div>
+                            <button class="btn-primary">Consultar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Chevrolet Spin -->
+                <div class="fleet-card glass" data-car-name="Chevrolet Spin" data-category="familiar" data-transmission="manual">
+                    <div class="fleet-card-image">
+                        <span class="category-badge suv">Familiar</span>
+                        <img src="assets/car-spin.png" alt="Chevrolet Spin" class="car-photo">
+                    </div>
+                    <div class="fleet-card-details">
+                        <h3>Chevrolet Spin <span class="similar">o similar</span></h3>
+                        <div class="fleet-specs">
+                            <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                            <span><i class="ph ph-briefcase"></i> 3 valijas</span>
+                            <span><i class="ph ph-gear"></i> Manual</span>
+                            <span><i class="ph ph-snowflake"></i> Aire acondicionado</span>
+                        </div>
+                        <div class="fleet-extras">
+                            <span><i class="ph ph-road-horizon"></i> 200km por día</span>
+                            <span><i class="ph ph-shield-check"></i> Seguro básico incluido</span>
+                        </div>
+                    </div>
+                    <div class="fleet-card-pricing">
+                        <div class="price-option highlight">
+                            <div class="price-group">
+                                <span class="price-label">Precio por d&iacute;a</span>
+                                <span class="price-value">$100.000</span>
+                            </div>
+                            <button class="btn-primary">Consultar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Toyota Corolla -->
+                <div class="fleet-card glass" data-car-name="Toyota Corolla" data-category="confort" data-transmission="auto">
+                    <div class="fleet-card-image">
+                        <span class="category-badge premium">Confort</span>
+                        <img src="assets/car-corolla.png" alt="Toyota Corolla" class="car-photo">
+                    </div>
+                    <div class="fleet-card-details">
+                        <h3>Toyota Corolla <span class="similar">o similar</span></h3>
+                        <div class="fleet-specs">
+                            <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                            <span><i class="ph ph-briefcase"></i> 3 valijas</span>
+                            <span><i class="ph ph-gear"></i> Automático</span>
+                            <span><i class="ph ph-snowflake"></i> Aire acondicionado</span>
+                        </div>
+                        <div class="fleet-extras">
+                            <span><i class="ph ph-road-horizon"></i> 200km por día</span>
+                            <span><i class="ph ph-shield-check"></i> Seguro completo incluido</span>
+                        </div>
+                    </div>
+                    <div class="fleet-card-pricing">
+                        <div class="price-option highlight">
+                            <div class="price-group">
+                                <span class="price-label">Precio por d&iacute;a</span>
+                                <span class="price-value">$110.000</span>
+                            </div>
+                            <button class="btn-primary">Consultar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: VW Golf TSI -->
+                <div class="fleet-card glass" data-car-name="Volkswagen Golf TSI" data-category="confort" data-transmission="manual">
+                    <div class="fleet-card-image">
+                        <span class="category-badge premium">Confort</span>
+                        <img src="assets/car-golf.png" alt="Volkswagen Golf TSI" class="car-photo">
+                    </div>
+                    <div class="fleet-card-details">
+                        <h3>Volkswagen Golf TSI <span class="similar">o similar</span></h3>
+                        <div class="fleet-specs">
+                            <span><i class="ph ph-users"></i> 5 pasajeros</span>
+                            <span><i class="ph ph-briefcase"></i> 2 valijas</span>
+                            <span><i class="ph ph-gear"></i> Manual</span>
+                            <span><i class="ph ph-snowflake"></i> Climatizador</span>
+                        </div>
+                        <div class="fleet-extras">
+                            <span><i class="ph ph-road-horizon"></i> 200km por día</span>
+                            <span><i class="ph ph-shield-check"></i> Seguro completo incluido</span>
+                        </div>
+                    </div>
+                    <div class="fleet-card-pricing">
+                        <div class="price-option highlight">
+                            <div class="price-group">
+                                <span class="price-label">Precio por d&iacute;a</span>
+                                <span class="price-value">$130.000</span>
+                            </div>
+                            <button class="btn-primary">Consultar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Fiat Fiorino -->
+                <div class="fleet-card glass" data-car-name="Fiat Fiorino" data-category="utilitario" data-transmission="manual">
+                    <div class="fleet-card-image">
+                        <span class="category-badge utility" style="background: #0369a1; color: white;">Utilitario</span>
+                        <img src="assets/car-fiorino.png" alt="Fiat Fiorino" class="car-photo" onerror="this.src='assets/car-onix.png';">
+                    </div>
+                    <div class="fleet-card-details">
+                        <h3>Fiat Fiorino <span class="similar">o similar</span></h3>
+                        <div class="fleet-specs">
+                            <span><i class="ph ph-users"></i> 2 pasajeros</span>
+                            <span><i class="ph ph-package"></i> Furgón de Carga</span>
+                            <span><i class="ph ph-gear"></i> Manual</span>
+                            <span><i class="ph ph-snowflake"></i> Aire Acondicionado</span>
+                        </div>
+                        <div class="fleet-extras">
+                            <span><i class="ph ph-road-horizon"></i> 200km por día</span>
+                            <span><i class="ph ph-shield-check"></i> Seguro básico incluido</span>
+                        </div>
+                    </div>
+                    <div class="fleet-card-pricing">
+                        <div class="price-option highlight">
+                            <div class="price-group">
+                                <span class="price-label">Precio por d&iacute;a</span>
+                                <span class="price-value">$75.000</span>
+                            </div>
+                            <button class="btn-primary">Consultar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo-group">
+                    <img src="assets/logo.png" alt="ABBEY Logo">
+                </div>
+                <p>ABBEY Rent a car: Más de 30 años brindando los mejores precios y una atención que nos diferencia.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/abbeyrentacar/" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="https://www.facebook.com/www.abbeyrentacar.com.ar/?locale=es_LA" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+                    <a href="https://wa.me/5491163842564" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="about.html">Sobre Nosotros</a></li>
+                    <li><a href="our-fleet.html">Flota</a></li>
+                    <li><a href="empresas.html">Convenio Empresas</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Términos y Condiciones</a></li>
+                    <li><a href="privacidad.html">Políticas de Privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="tel:+5491163842564"><i class="ph ph-phone"></i> +54 11 6384 2564</a></li>
+                    <li><a href="https://mail.google.com/mail/?view=cm&to=abbeyrentacar@gmail.com" target="_blank"><i class="ph ph-envelope"></i> abbeyrentacar@gmail.com</a></li>
+                    <li><a href="https://www.google.com/maps/place/Abbey+Rent+A+Car/@-34.6270509,-58.4367758,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcca4eae7a6c6b:0x31104204da43200e!8m2!3d-34.6270553!4d-58.4342009!16s%2Fg%2F1v2kym22" target="_blank"><i class="ph ph-map-pin"></i> Buenos Aires, Argentina</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 ABBEY Rent a car. Todos los derechos reservados.</p>
+            <p>Diseñado en Buenos Aires</p>
+        </div>
+    </footer>
+
+    <script src="fleet.js"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <a
+      id="whatsapp-float-btn"
+      class="whatsapp-float"
+      href="https://wa.me/5491163842564?text=Hola!%20Me%20interesa%20alquilar%20un%20auto%20con%20ABBEY%20Rent%20a%20Car."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <span class="whatsapp-float__label">Reservas / Consultas</span>
+      <div class="whatsapp-float__bubble">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+      </div>
+    </a>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
