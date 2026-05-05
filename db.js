@@ -52,14 +52,21 @@ async function initDatabase() {
 function updatePricesOnPage() {
     // Buscar elementos que tengan el atributo data-car-name
     const elements = document.querySelectorAll('[data-car-name]');
+    
+    // Calcular la oferta máxima directamente desde la base de datos
+    // (no depende de que haya tarjetas con data-car-name en la página)
     let maxOffer = 0;
+    for (const key in window.carDatabase) {
+        if (window.carDatabase[key].oferta > maxOffer) {
+            maxOffer = window.carDatabase[key].oferta;
+        }
+    }
     
     elements.forEach(el => {
         const carName = (el.getAttribute('data-car-name') || '').trim().toLowerCase();
         const data = window.carDatabase[carName];
         
         if (data) {
-            if (data.oferta > maxOffer) maxOffer = data.oferta;
 
             // Buscamos clases comunes donde se muestran precios
             const target = el.querySelector('.price-value') || el.querySelector('.dynamic-price');
