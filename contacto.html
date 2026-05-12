@@ -255,7 +255,7 @@
                             name: name,
                             surname: '',
                             email: email,
-                            phone: phone,
+                            phone: phone.startsWith('+') ? "'" + phone : phone,
                             carName: 'CONSULTA GRAL',
                             pickup: new Date().toLocaleDateString('es-AR'),
                             return: '-',

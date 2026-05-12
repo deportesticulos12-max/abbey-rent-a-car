@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: name,
                 surname: surname,
                 email: email,
-                phone: phone,
+                phone: phone.startsWith('+') ? "'" + phone : phone,
                 carName: carName,
                 location: locName,
                 pickup: pickupStr,
