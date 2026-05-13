@@ -101,10 +101,10 @@ function updatePricesOnPage() {
             
             if (car.reservaHasta) {
                 hasTimeLimited = true;
-                const rDate = new Date(car.reservaHasta);
+                const rDate = new Date(car.reservaHasta + 'T12:00:00');
                 if (!latestReservaHasta || rDate > latestReservaHasta) latestReservaHasta = rDate;
                 if (car.alquilerHasta) {
-                    const aDate = new Date(car.alquilerHasta);
+                    const aDate = new Date(car.alquilerHasta + 'T12:00:00');
                     if (!latestAlquilerHasta || aDate > latestAlquilerHasta) latestAlquilerHasta = aDate;
                 }
             } else {
@@ -175,7 +175,7 @@ function updatePricesOnPage() {
                 const optsDate = { day: 'numeric', month: 'long' };
                 const reservaStr = latestReservaHasta.toLocaleDateString('es-AR', optsDate);
                 const alquilerStr = latestAlquilerHasta.toLocaleDateString('es-AR', optsDate);
-                dynamicText.textContent = `Reservá antes del ${reservaStr} para alquileres hasta el ${alquilerStr}. Promoción válida en categorías seleccionadas.`;
+                dynamicText.textContent = `Reservá antes del ${reservaStr} para alquileres con devolución hasta el ${alquilerStr}. Promoción válida en categorías seleccionadas.`;
             }
             // Si solo hay promos permanentes (sin fechas), NO tocar el texto — queda el original del HTML
         }
