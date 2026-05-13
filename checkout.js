@@ -24,11 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const loc = params.get('location');
     const pickup = params.get('pickup');
     const returnDate = params.get('return');
+    const pickupTime = params.get('pickupTime') || '10:00';
+    const returnTime = params.get('returnTime') || '10:00';
     const carName = params.get('car') || 'Fiat Cronos';
     const category = params.get('category') || 'Económico';
     let dailyRate = parseInt(params.get('price') || '45000');
     const carImg = params.get('img');
     const payMethod = params.get('method') || 'destination';
+
+    // Calculate extra hours between pickup and return times
+    function calcExtraHours(pTime, rTime) {
+        const [ph, pm] = pTime.split(':').map(Number);
+        const [rh, rm] = rTime.split(':').map(Number);
+        const pickupMins = ph * 60 + pm;
+        const returnMins = rh * 60 + rm;
+        const diffMins = returnMins - pickupMins;
+        if (diffMins <= 0) return 0; // Returned same time or earlier
+        return Math.floor(diffMins / 60); // Full hours only
+    }
+
+    const extraHours = calcExtraHours(pickupTime, returnTime);
+    const isFullExtraDay = extraHours >= 6;
 
     // Populate sidebar
     document.getElementById('sidebarCarName').textContent = carName + ' o similar';
@@ -42,10 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('sidebarLocation').textContent = locationMap[loc];
     }
     if (pickup) {
-        document.getElementById('sidebarPickup').textContent = formatDate(pickup);
+        document.getElementById('sidebarPickup').textContent = formatDate(pickup) + ' — ' + pickupTime;
     }
     if (returnDate) {
-        document.getElementById('sidebarReturn').textContent = formatDate(returnDate);
+        document.getElementById('sidebarReturn').textContent = formatDate(returnDate) + ' — ' + returnTime;
     }
 
     let days = 1;
@@ -53,7 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const d1 = new Date(pickup);
         const d2 = new Date(returnDate);
         days = Math.max(1, Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24)));
-        document.getElementById('sidebarDays').textContent = days + ' día' + (days > 1 ? 's' : '');
+        let daysLabel = days + ' día' + (days > 1 ? 's' : '');
+        if (extraHours > 0 && !isFullExtraDay) {
+            daysLabel += ` + ${extraHours}hs`;
+        } else if (isFullExtraDay) {
+            daysLabel = (days + 1) + ' días';
+        }
+        document.getElementById('sidebarDays').textContent = daysLabel;
     }
 
     document.getElementById('sidebarDailyRate').textContent = formatPrice(dailyRate) + '/día';
@@ -210,9 +232,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (promoRow) promoRow.style.display = 'none';
         }
 
+        // --- Actualización Visual Horas Extra ---
+        const extraHoursRow = document.getElementById('extraHoursRow');
+        const extraHoursLabel = document.getElementById('extraHoursLabel');
+        const sidebarExtraHoursEl = document.getElementById('sidebarExtraHours');
+        let extraHoursCharge = 0;
+
+        if (extraHours > 0) {
+            if (isFullExtraDay) {
+                // 6+ hours → charge 1 full extra day
+                extraHoursCharge = Math.round(finalDailyRate + extrasDailyTotal);
+                if (extraHoursRow) extraHoursRow.style.display = 'flex';
+                if (extraHoursLabel) extraHoursLabel.textContent = '1 día';
+            } else {
+                // 1-5 hours → charge extraHours/6 of a day
+                extraHoursCharge = Math.round((finalDailyRate + extrasDailyTotal) * (extraHours / 6));
+                if (extraHoursRow) extraHoursRow.style.display = 'flex';
+                if (extraHoursLabel) extraHoursLabel.textContent = extraHours;
+            }
+            if (sidebarExtraHoursEl) sidebarExtraHoursEl.textContent = formatPrice(extraHoursCharge);
+        } else {
+            if (extraHoursRow) extraHoursRow.style.display = 'none';
+        }
+
         // --- Cálculo del TOTAL Final ---
-        const totalBaseOriginal = dailyRate * days + extrasTotal;
-        const totalConDescuentos = (finalDailyRate + extrasDailyTotal) * days + extrasFixedTotal;
+        const totalBaseOriginal = dailyRate * days + extrasTotal + (extraHours > 0 ? (isFullExtraDay ? dailyRate : Math.round(dailyRate * (extraHours / 6))) : 0);
+        const totalConDescuentos = (finalDailyRate + extrasDailyTotal) * days + extrasFixedTotal + extraHoursCharge;
 
         const sidebarTotal = document.getElementById('sidebarTotal');
         if (totalConDescuentos < totalBaseOriginal) {
@@ -265,9 +310,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Construct WhatsApp Message (Clean Text Version)
             let message = `*CONSULTA DE DISPONIBILIDAD - ABBEY RENT A CAR*\n\n`;
             message += `*VEHICULO:* ${carName}\n`;
-            message += `*RETIRO:* ${pickupStr} (${locName})\n`;
-            message += `*DEVOLUCION:* ${returnStr} (${locName})\n`;
-            message += `*DURACION:* ${days} día${days > 1 ? 's' : ''}\n`;
+            message += `*RETIRO:* ${pickupStr} ${pickupTime} (${locName})\n`;
+            message += `*DEVOLUCION:* ${returnStr} ${returnTime} (${locName})\n`;
+            let durationMsg = `${days} día${days > 1 ? 's' : ''}`;
+            if (extraHours > 0 && !isFullExtraDay) durationMsg += ` + ${extraHours}hs`;
+            else if (isFullExtraDay) durationMsg = `${days + 1} días`;
+            message += `*DURACION:* ${durationMsg}\n`;
             message += `*PRECIO REF:* ${totalStr}\n\n`;
             
             message += `*DATOS DEL CLIENTE:*\n`;
@@ -310,7 +358,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (days >= 7) {
                 effectiveDailyRateSubmit = dailyRate * (6 / 7);
             }
-            const numericTotal = (effectiveDailyRateSubmit + extrasDailySheet) * days + extrasFixedSheet;
+            
+            // Include extra hours in sheet total
+            let sheetExtraHoursCharge = 0;
+            if (extraHours > 0) {
+                if (isFullExtraDay) {
+                    sheetExtraHoursCharge = effectiveDailyRateSubmit + extrasDailySheet;
+                } else {
+                    sheetExtraHoursCharge = (effectiveDailyRateSubmit + extrasDailySheet) * (extraHours / 6);
+                }
+            }
+            const numericTotal = (effectiveDailyRateSubmit + extrasDailySheet) * days + extrasFixedSheet + sheetExtraHoursCharge;
 
             const sheetData = {
                 name: name,
@@ -319,9 +377,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 phone: phone.startsWith('+') ? "'" + phone : phone,
                 carName: carName,
                 location: locName,
-                pickup: pickupStr,
-                return: returnStr,
-                days: days,
+                pickup: pickupStr + ' ' + pickupTime,
+                return: returnStr + ' ' + returnTime,
+                days: isFullExtraDay ? days + 1 : days,
                 extras: selectedExtras.join(', '),
                 total: Math.round(numericTotal)
             };

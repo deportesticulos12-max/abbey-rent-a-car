@@ -352,6 +352,45 @@ nav .container {
   padding: 10px;
 }
 
+/* Date + Time Row */
+.date-time-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.date-time-row input,
+.date-time-row .flatpickr-input + .form-control {
+  flex: 1;
+  min-width: 0;
+}
+
+.time-select {
+  width: 88px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  padding: 0.875rem 0.4rem;
+  border-radius: 0.5rem;
+  color: var(--text-light);
+  outline: none;
+  transition: var(--transition);
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.time-select:focus {
+  border-color: var(--accent-yellow);
+}
+
+.time-select option {
+  background-color: white;
+  color: #1e293b;
+}
+
 /* Fleet Section */
 .section-padding {
   padding: 8rem 0;

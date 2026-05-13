@@ -16,20 +16,110 @@ document.addEventListener('DOMContentLoaded', () => {
         highlightNavOnScroll();
     });
 
-    // 2. Date range selection (Flatpickr)
+    // 2. Time selector logic
+    const pickupTimeSelect = document.getElementById('pickupTime');
+    const returnTimeSelect = document.getElementById('returnTime');
+
+    // Generate time options from 09:00 to 18:00 in 15-min intervals
+    function populateTimeOptions(selectEl, minTime) {
+        const currentVal = selectEl.value;
+        selectEl.innerHTML = '';
+        for (let h = 9; h <= 18; h++) {
+            for (let m = 0; m < 60; m += 15) {
+                if (h === 18 && m > 0) break; // Stop at 18:00
+                const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+                if (minTime && timeStr < minTime) continue;
+                const opt = document.createElement('option');
+                opt.value = timeStr;
+                opt.textContent = timeStr;
+                selectEl.appendChild(opt);
+            }
+        }
+        // Restore previous value if still available, else keep first option
+        if (currentVal && selectEl.querySelector(`option[value="${currentVal}"]`)) {
+            selectEl.value = currentVal;
+        }
+    }
+
+    // Get the earliest pickup time allowed for today (now + 2 hours, rounded to 15 min)
+    function getMinPickupTimeToday() {
+        const now = new Date();
+        now.setHours(now.getHours() + 2);
+        const remainder = now.getMinutes() % 15;
+        if (remainder > 0) now.setMinutes(now.getMinutes() + (15 - remainder));
+        now.setSeconds(0, 0);
+
+        const h = now.getHours();
+        const m = now.getMinutes();
+        if (h > 18 || (h === 18 && m > 0)) return null; // No time available today
+        if (h < 9) return '09:00';
+        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+
+    // Initialize time selects
+    if (pickupTimeSelect && returnTimeSelect) {
+        populateTimeOptions(pickupTimeSelect, null);
+        populateTimeOptions(returnTimeSelect, null);
+        // Default both to 10:00
+        pickupTimeSelect.value = '10:00';
+        returnTimeSelect.value = '10:00';
+
+        // Sync: when pickup time changes, set return time to same value
+        pickupTimeSelect.addEventListener('change', () => {
+            const val = pickupTimeSelect.value;
+            if (returnTimeSelect.querySelector(`option[value="${val}"]`)) {
+                returnTimeSelect.value = val;
+            }
+        });
+    }
+
+    // 2b. Date range selection (Flatpickr) with same-day time validation
     const pickupInput = document.getElementById('pickupDate');
     const returnInput = document.getElementById('returnDate');
 
     if (pickupInput && returnInput && typeof flatpickr !== 'undefined') {
-        flatpickr(pickupInput, {
+        const fp = flatpickr(pickupInput, {
             "plugins": [new rangePlugin({ input: returnInput })],
             minDate: "today",
-            showMonths: window.innerWidth > 768 ? 2 : 1, // 2 meses en PC, 1 en móvil
-            locale: "es", // Español
-            dateFormat: "Y-m-d", // Formato para procesar datos internamente
+            showMonths: window.innerWidth > 768 ? 2 : 1,
+            locale: "es",
+            dateFormat: "Y-m-d",
             altInput: true,
-            altFormat: "D., j M", // Ej: Jue., 23 Abr
-            disableMobile: true // Fuerza a usar este calendario en lugar del nativo del celular
+            altFormat: "D., j M",
+            disableMobile: true,
+            onChange: function(selectedDates) {
+                if (selectedDates.length > 0 && pickupTimeSelect) {
+                    const pickupDate = selectedDates[0];
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const isToday = pickupDate.getTime() === today.getTime();
+
+                    if (isToday) {
+                        const minTime = getMinPickupTimeToday();
+                        if (minTime === null) {
+                            // No time available today — move to tomorrow
+                            const tomorrow = new Date();
+                            tomorrow.setDate(tomorrow.getDate() + 1);
+                            fp.set('minDate', tomorrow);
+                            fp.setDate([tomorrow, selectedDates[1] || tomorrow]);
+                            populateTimeOptions(pickupTimeSelect, null);
+                            populateTimeOptions(returnTimeSelect, null);
+                            pickupTimeSelect.value = '10:00';
+                            returnTimeSelect.value = '10:00';
+                            return;
+                        }
+                        populateTimeOptions(pickupTimeSelect, minTime);
+                        // Sync return time to new pickup time
+                        const newPickupVal = pickupTimeSelect.value;
+                        if (returnTimeSelect.querySelector(`option[value="${newPickupVal}"]`)) {
+                            returnTimeSelect.value = newPickupVal;
+                        }
+                    } else {
+                        populateTimeOptions(pickupTimeSelect, null);
+                        populateTimeOptions(returnTimeSelect, null);
+                    }
+                }
+            }
         });
     }
 
@@ -59,6 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            const pickupTime = pickupTimeSelect ? pickupTimeSelect.value : '10:00';
+            const returnTime = returnTimeSelect ? returnTimeSelect.value : '10:00';
+
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
 
@@ -71,8 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const location = bookingForm.querySelector('select[required]').value;
 
             setTimeout(() => {
-                // Redirect to fleet page with params
-                const params = new URLSearchParams({ location, pickup, return: returnDate });
+                // Redirect to fleet page with params (including times)
+                const params = new URLSearchParams({ location, pickup, return: returnDate, pickupTime, returnTime });
                 window.location.href = 'fleet.html?' + params.toString();
             }, 800);
         });

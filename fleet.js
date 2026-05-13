@@ -13,17 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const loc = params.get('location');
     const pickup = params.get('pickup');
     const returnDate = params.get('return');
+    const pickupTime = params.get('pickupTime') || '10:00';
+    const returnTime = params.get('returnTime') || '10:00';
 
     if (loc && locationNames[loc]) {
         document.getElementById('summaryLocation').textContent = locationNames[loc];
     }
 
     if (pickup) {
-        document.getElementById('summaryPickup').textContent = new Date(pickup + 'T12:00:00').toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' });
+        const dateStr = new Date(pickup + 'T12:00:00').toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' });
+        document.getElementById('summaryPickup').textContent = dateStr + ' — ' + pickupTime;
     }
 
     if (returnDate) {
-        document.getElementById('summaryReturn').textContent = new Date(returnDate + 'T12:00:00').toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' });
+        const dateStr = new Date(returnDate + 'T12:00:00').toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' });
+        document.getElementById('summaryReturn').textContent = dateStr + ' — ' + returnTime;
     }
 
     if (pickup && returnDate) {
@@ -120,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 location: params.get('location') || '',
                 pickup: params.get('pickup') || '',
                 return: params.get('return') || '',
+                pickupTime: pickupTime,
+                returnTime: returnTime,
                 car: carName,
                 category: categoryName,
                 price: price,

@@ -92,11 +92,17 @@
                     </div>
                     <div class="form-group">
                         <label><i class="ph ph-calendar"></i> Fecha de Retiro</label>
-                        <input type="text" id="pickupDate" name="pickupDate" required placeholder="Seleccionar fecha">
+                        <div class="date-time-row">
+                            <input type="text" id="pickupDate" name="pickupDate" required placeholder="Seleccionar fecha">
+                            <select id="pickupTime" class="time-select" required></select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label><i class="ph ph-calendar"></i> Fecha de Devolución</label>
-                        <input type="text" id="returnDate" name="returnDate" required placeholder="Seleccionar fecha">
+                        <div class="date-time-row">
+                            <input type="text" id="returnDate" name="returnDate" required placeholder="Seleccionar fecha">
+                            <select id="returnTime" class="time-select" required></select>
+                        </div>
                     </div>
                     <button type="submit" class="btn-primary">
                         Buscar Auto
