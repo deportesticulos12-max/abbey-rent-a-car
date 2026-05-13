@@ -175,7 +175,7 @@ function updatePricesOnPage() {
                 const optsDate = { day: 'numeric', month: 'long' };
                 const reservaStr = latestReservaHasta.toLocaleDateString('es-AR', optsDate);
                 const alquilerStr = latestAlquilerHasta.toLocaleDateString('es-AR', optsDate);
-                dynamicText.textContent = `Reservá antes del ${reservaStr} para alquileres con devolución hasta el ${alquilerStr}. Promoción válida en categorías seleccionadas.`;
+                dynamicText.textContent = `Reservá antes del ${reservaStr} para alquileres con devolución hasta el ${alquilerStr}. Válido únicamente para pagos adelantados en efectivo o transferencia.`;
             }
             // Si solo hay promos permanentes (sin fechas), NO tocar el texto — queda el original del HTML
         }
