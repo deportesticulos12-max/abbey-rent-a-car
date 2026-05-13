@@ -28,12 +28,16 @@ async function initDatabase() {
                 const franquicia = parseInt(parts[2].replace(/[^\d]/g, '')) || 0;
                 const smartCover = parseInt(parts[3].replace(/[^\d]/g, '')) || 0;
                 const oferta = parts[4] ? (parseInt(parts[4].replace(/[^\d]/g, '')) || 0) : 0;
+                const reservaHasta = parts[5] ? parts[5].trim() : '';
+                const alquilerHasta = parts[6] ? parts[6].trim() : '';
                 
                 window.carDatabase[vehiculo] = {
                     precio: precio,
                     franquicia: franquicia,
                     smartCover: smartCover,
-                    oferta: oferta
+                    oferta: oferta,
+                    reservaHasta: reservaHasta,
+                    alquilerHasta: alquilerHasta
                 };
             }
         }
@@ -49,16 +53,45 @@ async function initDatabase() {
     }
 }
 
+// Verifica si una oferta está activa según la fecha de hoy
+function isOfferActive(car) {
+    if (!car.oferta || car.oferta <= 0) return false;
+    if (!car.reservaHasta) return true; // Sin fecha = permanente
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const deadline = new Date(car.reservaHasta + 'T23:59:59');
+    return today <= deadline;
+}
+
 function updatePricesOnPage() {
     // Buscar elementos que tengan el atributo data-car-name
     const elements = document.querySelectorAll('[data-car-name]');
     
     // Calcular la oferta máxima directamente desde la base de datos
-    // (no depende de que haya tarjetas con data-car-name en la página)
+    // separando promos permanentes de temporales
     let maxOffer = 0;
+    let hasTimeLimited = false;
+    let hasPermanent = false;
+    let latestReservaHasta = null;
+    let latestAlquilerHasta = null;
+    
     for (const key in window.carDatabase) {
-        if (window.carDatabase[key].oferta > maxOffer) {
-            maxOffer = window.carDatabase[key].oferta;
+        const car = window.carDatabase[key];
+        if (isOfferActive(car)) {
+            if (car.oferta > maxOffer) maxOffer = car.oferta;
+            
+            if (car.reservaHasta) {
+                hasTimeLimited = true;
+                const rDate = new Date(car.reservaHasta);
+                if (!latestReservaHasta || rDate > latestReservaHasta) latestReservaHasta = rDate;
+                if (car.alquilerHasta) {
+                    const aDate = new Date(car.alquilerHasta);
+                    if (!latestAlquilerHasta || aDate > latestAlquilerHasta) latestAlquilerHasta = aDate;
+                }
+            } else {
+                hasPermanent = true;
+            }
         }
     }
     
@@ -79,7 +112,7 @@ function updatePricesOnPage() {
                 });
 
                 const originalPrice = data.precio;
-                const discount = data.oferta || 0;
+                const discount = isOfferActive(data) ? data.oferta : 0;
 
                 if (discount > 0) {
                     const discountedPrice = Math.round(originalPrice * (1 - discount / 100));
@@ -112,9 +145,22 @@ function updatePricesOnPage() {
     // Actualizar cartel de oferta en el Index si existe
     const dynamicCard = document.getElementById('dynamicPromoCard');
     const dynamicBadge = document.getElementById('dynamicOfferBadge');
+    const dynamicText = document.getElementById('dynamicPromoText');
+    
     if (maxOffer > 0) {
         if (dynamicBadge) dynamicBadge.textContent = `¡Hasta ${maxOffer}% OFF!`;
         if (dynamicCard) dynamicCard.style.display = 'flex';
+        
+        // Cambiar el texto según el tipo de promo
+        if (dynamicText) {
+            if (hasTimeLimited && latestReservaHasta && latestAlquilerHasta) {
+                const optsDate = { day: 'numeric', month: 'long' };
+                const reservaStr = latestReservaHasta.toLocaleDateString('es-AR', optsDate);
+                const alquilerStr = latestAlquilerHasta.toLocaleDateString('es-AR', optsDate);
+                dynamicText.textContent = `Reservá antes del ${reservaStr} para alquileres hasta el ${alquilerStr}. Promoción válida en categorías seleccionadas.`;
+            }
+            // Si solo hay promos permanentes (sin fechas), NO tocar el texto — queda el original del HTML
+        }
     } else {
         if (dynamicCard) dynamicCard.style.display = 'none';
     }

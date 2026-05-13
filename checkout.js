@@ -133,9 +133,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (extraPricesFixed[name] !== undefined) extrasFixedTotal += extraPricesFixed[name];
         });
 
-        // 1. Calcular Descuento Manual (Oferta del Sheets)
+        // 1. Calcular Descuento Manual (Oferta del Sheets) con validación de fechas
         const dbData = window.carDatabase[carName.trim().toLowerCase()];
-        const manualDiscountPercent = dbData ? (dbData.oferta || 0) : 0;
+        let manualDiscountPercent = 0;
+        
+        if (dbData && dbData.oferta > 0) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            let promoActive = true;
+            
+            // Si tiene fecha límite de reserva, verificar que hoy no la haya pasado
+            if (dbData.reservaHasta) {
+                const reservaDeadline = new Date(dbData.reservaHasta + 'T23:59:59');
+                if (today > reservaDeadline) promoActive = false;
+            }
+            
+            // Si tiene fecha límite de alquiler, verificar que la devolución sea antes
+            if (dbData.alquilerHasta && returnDate) {
+                const alquilerDeadline = new Date(dbData.alquilerHasta + 'T23:59:59');
+                const returnDateObj = new Date(returnDate);
+                if (returnDateObj > alquilerDeadline) promoActive = false;
+            }
+            
+            if (promoActive) manualDiscountPercent = dbData.oferta;
+        }
+        
         const manualDiscountFactor = 1 - (manualDiscountPercent / 100);
         
         let rateAfterManualDiscount = dailyRate * manualDiscountFactor;
