@@ -53,20 +53,36 @@ async function initDatabase() {
     }
 }
 
-// Verifica si una oferta está activa según la fecha de hoy
-function isOfferActive(car) {
+// Verifica si una oferta está activa según la fecha de hoy y opcionalmente la fecha de devolución
+function isOfferActive(car, returnDateStr) {
     if (!car.oferta || car.oferta <= 0) return false;
-    if (!car.reservaHasta) return true; // Sin fecha = permanente
     
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const deadline = new Date(car.reservaHasta + 'T23:59:59');
-    return today <= deadline;
+    
+    // Si tiene fecha límite de reserva, verificar que hoy no la haya pasado
+    if (car.reservaHasta) {
+        const deadline = new Date(car.reservaHasta + 'T23:59:59');
+        if (today > deadline) return false;
+    }
+    
+    // Si tiene fecha límite de alquiler Y se proporcionó fecha de devolución, verificar
+    if (car.alquilerHasta && returnDateStr) {
+        const alquilerDeadline = new Date(car.alquilerHasta + 'T23:59:59');
+        const returnDate = new Date(returnDateStr);
+        if (returnDate > alquilerDeadline) return false;
+    }
+    
+    return true;
 }
 
 function updatePricesOnPage() {
     // Buscar elementos que tengan el atributo data-car-name
     const elements = document.querySelectorAll('[data-car-name]');
+    
+    // Leer la fecha de devolución de la URL (disponible en fleet y checkout)
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageReturnDate = urlParams.get('return') || '';
     
     // Calcular la oferta máxima directamente desde la base de datos
     // separando promos permanentes de temporales
@@ -78,7 +94,9 @@ function updatePricesOnPage() {
     
     for (const key in window.carDatabase) {
         const car = window.carDatabase[key];
-        if (isOfferActive(car)) {
+        // Para el index (sin returnDate en URL), solo chequeamos ReservaHasta
+        // Para fleet/checkout (con returnDate en URL), chequeamos ambas fechas
+        if (isOfferActive(car, pageReturnDate)) {
             if (car.oferta > maxOffer) maxOffer = car.oferta;
             
             if (car.reservaHasta) {
@@ -112,7 +130,7 @@ function updatePricesOnPage() {
                 });
 
                 const originalPrice = data.precio;
-                const discount = isOfferActive(data) ? data.oferta : 0;
+                const discount = isOfferActive(data, pageReturnDate) ? data.oferta : 0;
 
                 if (discount > 0) {
                     const discountedPrice = Math.round(originalPrice * (1 - discount / 100));
