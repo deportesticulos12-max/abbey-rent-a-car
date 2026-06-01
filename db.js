@@ -210,15 +210,15 @@ function updatePricesOnPage() {
                 // Ambas fechas: "Reservá antes del X para alquileres con devolución hasta el Y"
                 const reservaStr = latestReservaHasta.toLocaleDateString('es-AR', optsDate);
                 const alquilerStr = latestAlquilerHasta.toLocaleDateString('es-AR', optsDate);
-                dynamicText.textContent = `Reservá antes del ${reservaStr} para alquileres con devolución hasta el ${alquilerStr}. Válido únicamente para pagos adelantados en efectivo o transferencia.`;
+                dynamicText.textContent = `Reservá antes del ${reservaStr} para alquileres con devolución hasta el ${alquilerStr}. Promoción válida en categorías seleccionadas para pagos adelantados en efectivo o transferencia.`;
             } else if (latestAlquilerHasta) {
                 // Solo fecha de alquiler: "Para alquileres con devolución hasta el Y"
                 const alquilerStr = latestAlquilerHasta.toLocaleDateString('es-AR', optsDate);
-                dynamicText.textContent = `Para alquileres con devolución hasta el ${alquilerStr}. Válido únicamente para pagos adelantados en efectivo o transferencia.`;
+                dynamicText.textContent = `Para alquileres con devolución hasta el ${alquilerStr}. Promoción válida en categorías seleccionadas para pagos adelantados en efectivo o transferencia.`;
             } else if (latestReservaHasta) {
                 // Solo fecha de reserva: "Reservá antes del X"
                 const reservaStr = latestReservaHasta.toLocaleDateString('es-AR', optsDate);
-                dynamicText.textContent = `Reservá antes del ${reservaStr}. Válido únicamente para pagos adelantados en efectivo o transferencia.`;
+                dynamicText.textContent = `Reservá antes del ${reservaStr}. Promoción válida en categorías seleccionadas para pagos adelantados en efectivo o transferencia.`;
             }
             // Si solo hay promos permanentes (sin fechas), NO tocar el texto — queda el original del HTML
         }
