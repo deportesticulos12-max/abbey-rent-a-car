@@ -53,6 +53,37 @@ async function initDatabase() {
     }
 }
 
+// Parsea fechas en formato dd/mm/yyyy o yyyy-mm-dd y devuelve un Date válido
+function parseFlexDate(dateStr, time) {
+    if (!dateStr) return null;
+    const s = dateStr.trim();
+    let y, m, d;
+    
+    if (s.includes('/')) {
+        // Formato dd/mm/yyyy
+        const parts = s.split('/');
+        if (parts.length !== 3) return null;
+        d = parseInt(parts[0], 10);
+        m = parseInt(parts[1], 10) - 1; // JS months are 0-indexed
+        y = parseInt(parts[2], 10);
+    } else if (s.includes('-')) {
+        // Formato yyyy-mm-dd (ISO)
+        const parts = s.split('-');
+        if (parts.length !== 3) return null;
+        y = parseInt(parts[0], 10);
+        m = parseInt(parts[1], 10) - 1;
+        d = parseInt(parts[2], 10);
+    } else {
+        return null;
+    }
+    
+    if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
+    
+    if (time === 'end') return new Date(y, m, d, 23, 59, 59);
+    if (time === 'mid') return new Date(y, m, d, 12, 0, 0);
+    return new Date(y, m, d);
+}
+
 // Verifica si una oferta está activa según la fecha de hoy y opcionalmente la fecha de devolución
 function isOfferActive(car, returnDateStr) {
     if (!car.oferta || car.oferta <= 0) return false;
@@ -62,15 +93,15 @@ function isOfferActive(car, returnDateStr) {
     
     // Si tiene fecha límite de reserva, verificar que hoy no la haya pasado
     if (car.reservaHasta) {
-        const deadline = new Date(car.reservaHasta + 'T23:59:59');
-        if (today > deadline) return false;
+        const deadline = parseFlexDate(car.reservaHasta, 'end');
+        if (!deadline || today > deadline) return false;
     }
     
     // Si tiene fecha límite de alquiler Y se proporcionó fecha de devolución, verificar
     if (car.alquilerHasta && returnDateStr) {
-        const alquilerDeadline = new Date(car.alquilerHasta + 'T23:59:59');
+        const alquilerDeadline = parseFlexDate(car.alquilerHasta, 'end');
         const returnDate = new Date(returnDateStr);
-        if (returnDate > alquilerDeadline) return false;
+        if (!alquilerDeadline || returnDate > alquilerDeadline) return false;
     }
     
     return true;
@@ -101,11 +132,11 @@ function updatePricesOnPage() {
             
             if (car.reservaHasta) {
                 hasTimeLimited = true;
-                const rDate = new Date(car.reservaHasta + 'T12:00:00');
-                if (!latestReservaHasta || rDate > latestReservaHasta) latestReservaHasta = rDate;
+                const rDate = parseFlexDate(car.reservaHasta, 'mid');
+                if (rDate && (!latestReservaHasta || rDate > latestReservaHasta)) latestReservaHasta = rDate;
                 if (car.alquilerHasta) {
-                    const aDate = new Date(car.alquilerHasta + 'T12:00:00');
-                    if (!latestAlquilerHasta || aDate > latestAlquilerHasta) latestAlquilerHasta = aDate;
+                    const aDate = parseFlexDate(car.alquilerHasta, 'mid');
+                    if (aDate && (!latestAlquilerHasta || aDate > latestAlquilerHasta)) latestAlquilerHasta = aDate;
                 }
             } else {
                 hasPermanent = true;

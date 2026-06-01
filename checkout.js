@@ -159,6 +159,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const dbData = window.carDatabase[carName.trim().toLowerCase()];
         let manualDiscountPercent = 0;
         
+        // Parsea fechas en formato dd/mm/yyyy o yyyy-mm-dd
+        function parseFlexDate(dateStr, time) {
+            if (!dateStr) return null;
+            const s = dateStr.trim();
+            let y, m, d;
+            if (s.includes('/')) {
+                const parts = s.split('/');
+                if (parts.length !== 3) return null;
+                d = parseInt(parts[0], 10);
+                m = parseInt(parts[1], 10) - 1;
+                y = parseInt(parts[2], 10);
+            } else if (s.includes('-')) {
+                const parts = s.split('-');
+                if (parts.length !== 3) return null;
+                y = parseInt(parts[0], 10);
+                m = parseInt(parts[1], 10) - 1;
+                d = parseInt(parts[2], 10);
+            } else { return null; }
+            if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
+            if (time === 'end') return new Date(y, m, d, 23, 59, 59);
+            return new Date(y, m, d);
+        }
+        
         if (dbData && dbData.oferta > 0) {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -167,15 +190,15 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Si tiene fecha límite de reserva, verificar que hoy no la haya pasado
             if (dbData.reservaHasta) {
-                const reservaDeadline = new Date(dbData.reservaHasta + 'T23:59:59');
-                if (today > reservaDeadline) promoActive = false;
+                const reservaDeadline = parseFlexDate(dbData.reservaHasta, 'end');
+                if (!reservaDeadline || today > reservaDeadline) promoActive = false;
             }
             
             // Si tiene fecha límite de alquiler, verificar que la devolución sea antes
             if (dbData.alquilerHasta && returnDate) {
-                const alquilerDeadline = new Date(dbData.alquilerHasta + 'T23:59:59');
+                const alquilerDeadline = parseFlexDate(dbData.alquilerHasta, 'end');
                 const returnDateObj = new Date(returnDate);
-                if (returnDateObj > alquilerDeadline) promoActive = false;
+                if (!alquilerDeadline || returnDateObj > alquilerDeadline) promoActive = false;
             }
             
             if (promoActive) manualDiscountPercent = dbData.oferta;
