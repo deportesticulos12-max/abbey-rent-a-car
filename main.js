@@ -164,6 +164,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const location = bookingForm.querySelector('select[required]').value;
 
             setTimeout(() => {
+                // GA4: Track search event
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'buscar_auto', {
+                        event_category: 'booking',
+                        location: location,
+                        pickup_date: pickup,
+                        return_date: returnDate,
+                        pickup_time: pickupTime,
+                        return_time: returnTime
+                    });
+                }
                 // Redirect to fleet page with params (including times)
                 const params = new URLSearchParams({ location, pickup, return: returnDate, pickupTime, returnTime });
                 window.location.href = 'fleet.html?' + params.toString();

@@ -424,6 +424,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Redirection logic
             setTimeout(() => {
+                // GA4: Track reservation inquiry
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'generar_reserva', {
+                        event_category: 'checkout',
+                        car_name: carName,
+                        total_price: Math.round(numericTotal),
+                        days: isFullExtraDay ? days + 1 : days,
+                        location: locName
+                    });
+                }
+
                 // Just go to success page
                 window.location.href = 'success.html';
             }, 800);
