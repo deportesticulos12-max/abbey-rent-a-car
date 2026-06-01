@@ -229,3 +229,30 @@ function updatePricesOnPage() {
 
 // Iniciar la carga
 initDatabase();
+
+// Seguimiento global de clics en WhatsApp para GA4
+document.addEventListener('click', (e) => {
+    // Buscar si el click fue en un enlace de WhatsApp o botón flotante
+    const whatsappLink = e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"], .whatsapp-float');
+    if (whatsappLink) {
+        if (typeof gtag !== 'undefined') {
+            // Determinar tipo de click en WhatsApp (flotante, promo, contacto general, etc.)
+            let clickType = 'general';
+            if (whatsappLink.classList.contains('whatsapp-float') || whatsappLink.closest('.whatsapp-float')) {
+                clickType = 'boton_flotante';
+            } else if (whatsappLink.classList.contains('promo-btn')) {
+                clickType = 'oferta_banner';
+            } else if (whatsappLink.closest('footer')) {
+                clickType = 'footer';
+            } else if (whatsappLink.closest('.contact-info') || whatsappLink.closest('.info-card')) {
+                clickType = 'pagina_contacto';
+            }
+            
+            gtag('event', 'click_whatsapp', {
+                'tipo_click': clickType,
+                'url_destino': whatsappLink.href || 'boton_flotante',
+                'pagina_origen': window.location.pathname
+            });
+        }
+    }
+});
