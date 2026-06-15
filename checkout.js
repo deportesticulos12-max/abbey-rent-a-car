@@ -279,9 +279,24 @@ document.addEventListener('DOMContentLoaded', () => {
             if (extraHoursRow) extraHoursRow.style.display = 'none';
         }
 
+        // --- Recargo por Aeropuerto ---
+        const AIRPORT_SURCHARGE = 80000; // $40.000 entrega + $40.000 devolución
+        const isAirport = loc === 'eze' || loc === 'aep';
+        const airportSurchargeRow = document.getElementById('airportSurchargeRow');
+        const sidebarAirportSurcharge = document.getElementById('sidebarAirportSurcharge');
+        
+        if (isAirport) {
+            if (airportSurchargeRow) airportSurchargeRow.style.display = 'flex';
+            if (sidebarAirportSurcharge) sidebarAirportSurcharge.textContent = formatPrice(AIRPORT_SURCHARGE);
+        } else {
+            if (airportSurchargeRow) airportSurchargeRow.style.display = 'none';
+        }
+
+        const airportCharge = isAirport ? AIRPORT_SURCHARGE : 0;
+
         // --- Cálculo del TOTAL Final ---
-        const totalBaseOriginal = dailyRate * days + extrasTotal + (extraHours > 0 ? (isFullExtraDay ? dailyRate : Math.round(dailyRate * (extraHours / 6))) : 0);
-        const totalConDescuentos = (finalDailyRate + extrasDailyTotal) * days + extrasFixedTotal + extraHoursCharge;
+        const totalBaseOriginal = dailyRate * days + extrasTotal + (extraHours > 0 ? (isFullExtraDay ? dailyRate : Math.round(dailyRate * (extraHours / 6))) : 0) + airportCharge;
+        const totalConDescuentos = (finalDailyRate + extrasDailyTotal) * days + extrasFixedTotal + extraHoursCharge + airportCharge;
         finalCalculatedTotal = Math.round(totalConDescuentos);
 
         const sidebarTotal = document.getElementById('sidebarTotal');
@@ -350,6 +365,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (selectedExtras.length > 0) {
                 message += `*EXTRAS:* ${selectedExtras.join(', ')}\n`;
+            }
+
+            if (loc === 'eze' || loc === 'aep') {
+                message += `*RECARGO AEROPUERTO:* $80.000 (entrega + devolución)\n`;
             }
 
             message += `\n_Consulta enviada desde la web oficial._`;
