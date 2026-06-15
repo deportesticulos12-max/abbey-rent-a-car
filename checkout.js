@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const carName = params.get('car') || 'Fiat Cronos';
     const category = params.get('category') || 'Económico';
     let dailyRate = parseInt(params.get('price') || '45000');
+    let finalCalculatedTotal = 0;
     const carImg = params.get('img');
     const payMethod = params.get('method') || 'destination';
 
@@ -281,6 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Cálculo del TOTAL Final ---
         const totalBaseOriginal = dailyRate * days + extrasTotal + (extraHours > 0 ? (isFullExtraDay ? dailyRate : Math.round(dailyRate * (extraHours / 6))) : 0);
         const totalConDescuentos = (finalDailyRate + extrasDailyTotal) * days + extrasFixedTotal + extraHoursCharge;
+        finalCalculatedTotal = Math.round(totalConDescuentos);
 
         const sidebarTotal = document.getElementById('sidebarTotal');
         if (totalConDescuentos < totalBaseOriginal) {
@@ -326,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const pickupStr = formatDate(pickup);
             const returnStr = formatDate(returnDate);
-            const totalStr = document.getElementById('sidebarTotal').textContent;
+            const totalStr = formatPrice(finalCalculatedTotal);
 
             const locName = document.getElementById('sidebarLocation').textContent;
 
@@ -355,44 +357,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const waUrl = `https://wa.me/5491163842564?text=${encodeURIComponent(message)}`;
 
             // --- Google Sheets Integration (Background) ---
-            // Calculate numeric total for the sheet (pure number, no formatting symbols)
-            let extrasTotalSheet = 0;
-            document.querySelectorAll('.toggle-switch input:checked').forEach(toggle => {
-                const extraName = toggle.getAttribute('name');
-                if (extraPrices[extraName] !== undefined) {
-                    extrasTotalSheet += extraPrices[extraName];
-                }
-            });
-
-            // Re-apply 6+1 logic for final total
-            let extrasDailySheet = 0;
-            let extrasFixedSheet = 0;
-            document.querySelectorAll('.toggle-switch input:checked').forEach(toggle => {
-                const extraName = toggle.getAttribute('name');
-                if (extraPrices[extraName] !== undefined) {
-                    extrasDailySheet += extraPrices[extraName];
-                }
-                if (extraPricesFixed[extraName] !== undefined) {
-                    extrasFixedSheet += extraPricesFixed[extraName];
-                }
-            });
-
-            let effectiveDailyRateSubmit = dailyRate;
-            if (days >= 7) {
-                effectiveDailyRateSubmit = dailyRate * (6 / 7);
-            }
-            
-            // Include extra hours in sheet total
-            let sheetExtraHoursCharge = 0;
-            if (extraHours > 0) {
-                if (isFullExtraDay) {
-                    sheetExtraHoursCharge = effectiveDailyRateSubmit + extrasDailySheet;
-                } else {
-                    sheetExtraHoursCharge = (effectiveDailyRateSubmit + extrasDailySheet) * (extraHours / 6);
-                }
-            }
-            const numericTotal = (effectiveDailyRateSubmit + extrasDailySheet) * days + extrasFixedSheet + sheetExtraHoursCharge;
-
             const sheetData = {
                 name: name,
                 surname: surname,
@@ -404,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return: returnStr + ' ' + returnTime,
                 days: isFullExtraDay ? days + 1 : days,
                 extras: selectedExtras.join(', '),
-                total: Math.round(numericTotal)
+                total: finalCalculatedTotal
             };
 
             console.log('Sending data to Sheet:', sheetData); // Debug log
@@ -429,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     gtag('event', 'generar_reserva', {
                         event_category: 'checkout',
                         car_name: carName,
-                        total_price: Math.round(numericTotal),
+                        total_price: finalCalculatedTotal,
                         days: isFullExtraDay ? days + 1 : days,
                         location: locName
                     });
