@@ -3,7 +3,7 @@ const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1gWb6JKa4es
 // Hoja de promociones (6+1, escapada). Publicar la hoja "Promociones" como CSV y pegar el link acá.
 // Columnas: Promo | Activa (SI/NO) | Desde | Hasta
 // Mientras esté vacío, todas las promos quedan activas (comportamiento anterior).
-const PROMOS_URL = '';
+const PROMOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1gWb6JKa4esdFDuS9DEJ-6b82PeBT2vvZy6U53mufyAu_g9-v6Ep51sNmBkzrJfzQGg7LImhcPzNU/pub?gid=672775905&single=true&output=csv';
 
 window.carDatabase = {};
 window.promoConfig = {};
