@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Calcular Descuento 6+1 (Automático)
         let finalDailyRate = rateAfterManualDiscount;
-        const isPromo6plus1 = days >= 7;
+        const isPromo6plus1 = days >= 7 && (typeof window.isPromoActive !== 'function' || window.isPromoActive('6+1', pickup, returnDate));
         if (isPromo6plus1) {
             finalDailyRate = rateAfterManualDiscount * (6 / 7);
         }

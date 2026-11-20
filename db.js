@@ -1,13 +1,74 @@
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1gWb6JKa4esdFDuS9DEJ-6b82PeBT2vvZy6U53mufyAu_g9-v6Ep51sNmBkzrJfzQGg7LImhcPzNU/pub?output=csv';
 
+// Hoja de promociones (6+1, escapada). Publicar la hoja "Promociones" como CSV y pegar el link acá.
+// Columnas: Promo | Activa (SI/NO) | Desde | Hasta
+// Mientras esté vacío, todas las promos quedan activas (comportamiento anterior).
+const PROMOS_URL = '';
+
 window.carDatabase = {};
+window.promoConfig = {};
 window.isDatabaseReady = false;
+
+async function loadPromos() {
+    if (!PROMOS_URL) return;
+    try {
+        const response = await fetch(PROMOS_URL);
+        const csvText = await response.text();
+        const lines = csvText.split('\n');
+        const config = {};
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+            let parts = line.split(',');
+            if (parts.length < 2) parts = line.split(';');
+            if (parts.length < 2) continue;
+            const name = parts[0].trim().toLowerCase().replace(/"/g, '');
+            if (!name) continue;
+            config[name] = {
+                activa: parts[1].trim().replace(/"/g, '').toUpperCase() !== 'NO',
+                desde: parts[2] ? parts[2].trim().replace(/"/g, '') : '',
+                hasta: parts[3] ? parts[3].trim().replace(/"/g, '') : ''
+            };
+        }
+        window.promoConfig = config;
+    } catch (error) {
+        console.error('Error cargando promociones (se dejan activas):', error);
+    }
+}
+
+// ¿Está activa la promo? pickupStr/returnStr = fechas del alquiler (yyyy-mm-dd).
+// Sin fechas (home): solo verifica activa y que "Hasta" no haya pasado.
+window.isPromoActive = function (name, pickupStr, returnStr) {
+    const cfg = window.promoConfig[name.toLowerCase()];
+    if (!cfg) return true;
+    if (!cfg.activa) return false;
+    if (pickupStr && returnStr) {
+        if (cfg.desde) {
+            const from = parseFlexDate(cfg.desde, 'start');
+            const p = parseFlexDate(pickupStr, 'start');
+            if (from && p && p < from) return false;
+        }
+        if (cfg.hasta) {
+            const to = parseFlexDate(cfg.hasta, 'end');
+            const r = parseFlexDate(returnStr, 'start');
+            if (to && r && r > to) return false;
+        }
+    } else if (cfg.hasta) {
+        const to = parseFlexDate(cfg.hasta, 'end');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (to && today > to) return false;
+    }
+    return true;
+};
 
 async function initDatabase() {
     try {
         const response = await fetch(SHEET_URL);
         const csvText = await response.text();
         const lines = csvText.split('\n');
+        
+        await loadPromos();
         
         // Limpiar la base de datos antes de cargar
         window.carDatabase = {};
@@ -47,6 +108,7 @@ async function initDatabase() {
     } catch (error) {
         console.error('Error cargando la base de datos de precios desde Google Sheets:', error);
     } finally {
+        if (!Object.keys(window.promoConfig).length) await loadPromos();
         window.isDatabaseReady = true;
         window.dispatchEvent(new CustomEvent('databaseReady'));
         updatePricesOnPage();
@@ -192,6 +254,12 @@ function updatePricesOnPage() {
             }
         }
     });
+
+    // Mostrar/ocultar tarjetas de promos fijas según la hoja de Promociones
+    const costaCard = document.getElementById('promoCostaCard');
+    if (costaCard) costaCard.style.display = window.isPromoActive('escapada') ? '' : 'none';
+    const promo6Card = document.getElementById('promo6plus1Card');
+    if (promo6Card) promo6Card.style.display = window.isPromoActive('6+1') ? '' : 'none';
 
     // Actualizar cartel de oferta en el Index si existe
     const dynamicCard = document.getElementById('dynamicPromoCard');
